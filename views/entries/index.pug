@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  section
+    each entry in entries
+      div.well
+        p= entry.prompt
+        p= entry.body

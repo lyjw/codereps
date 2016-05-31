@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  form(action='/entries' method='post')
+    .form-group
+      textarea(name='body')
+    .form-group
+      input(type='submit' value='Save' class='btn btn-default')
