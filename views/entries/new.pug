@@ -1,7 +1,10 @@
 extends ../layout
 
 block content
+  p= prompt.prompt
   form(action='/entries' method='post')
+    .form-group
+      input(type='hidden', name='promptId', value=prompt._id)
     .form-group
       textarea(name='body')
     .form-group
