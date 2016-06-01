@@ -43,14 +43,9 @@ router.post("/", function(req, res, next) {
     console.log(prompt._id);
 
     var entry = new Entry ({
+      _prompt: prompt,
       body: req.body.body
     });
-
-    entry._prompt = prompt;
-
-    console.log(">>>>>>>>>>>>>>>>> ENTRY RIGHT AFTER")
-    console.log(entry._prompt.prompt);
-
     return entry;
   }).then(function(entry){
     console.log(">>>>>>>>>>>>>>>>> ENTRY AFTER THEN")

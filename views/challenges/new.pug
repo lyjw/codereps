@@ -19,12 +19,12 @@ block content
         label(for='challenge') Challenge
         textarea.form-control(name='challenge')
       .form-group
-        label(for='solution') Solution
-        textarea#editor.form-control(name='solution')
+        label(for='test') Test
+        textarea#editor.form-control(name='test')
       .form-group
         input(type='submit' value='Create Challenge' class='btn btn-default')
 
   script(type='text/javascript').
     var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-      lineNumbers: true 
+      lineNumbers: true
     });

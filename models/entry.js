@@ -13,31 +13,5 @@ var EntrySchema = new Schema({
   created:    { type: Date, default: Date.now }
 });
 
-// EntrySchema.methods.findPrompt = function(promptId) {
-//   // var promise = Prompt.findOne({ _id: promptId }).exec();
-//   //
-//   // promise.then(function(prompt) {
-//   //   console.log(prompt.prompt);
-//   //   if (prompt !== null) {
-//   //     res.return(prompt.prompt);
-//   //   }
-//   // // Prompt.findOne({ _id: promptId }, function(err, prompt){
-//   // //   if (prompt !== null) {
-//   // //     var promptBody = prompt.prompt;
-//   // //     console.log(prompt.prompt);
-//   // //   }
-//   // });
-//   this.model('Entry')
-//     .findOne({ _id: entryId })
-//     .populate('_prompt')
-//     .exec(function (err, entry) {
-//       if (err) return handleError(err);
-//
-//       Prompt.findOne({ _id: })
-//
-//       console.log(entry);
-//     });
-// }
-
 EntrySchema.plugin(autoIncrement.plugin, 'Entry');
 module.exports = mongoose.model('Entry', EntrySchema);

@@ -6,6 +6,8 @@ block content
   .col-md-6
     form.form-horizontal(action='/snippets' method='post')
       .form-group
+        input(type='hidden', name='challengeId', value=challenge.challengeId)
+      .form-group
         textarea#editor.form-control(name='input')
       .form-group
         input(type='submit' value='Submit Code' class='btn btn-default')
