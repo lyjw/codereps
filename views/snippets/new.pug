@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  h3= challenge.challenge
+  br
+  .col-md-6
+    form.form-horizontal(action='/snippets' method='post')
+      .form-group
+        textarea#editor.form-control(name='input')
+      .form-group
+        input(type='submit' value='Submit Code' class='btn btn-default')
+
+  script(type='text/javascript').
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+      lineNumbers: true
+    });
