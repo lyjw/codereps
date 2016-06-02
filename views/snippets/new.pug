@@ -1,14 +1,14 @@
 extends ../layout
 
 block content
-  h3= challenge.challenge
+  h3= challenge.description
   br
   .col-md-6
     form.form-horizontal(action='/snippets' method='post')
       .form-group
         input(type='hidden', name='challengeId', value=challenge.challengeId)
       .form-group
-        textarea#editor.form-control(name='input')
+        textarea#editor.form-control(name='input')=challenge.prefill
       .form-group
         input(type='submit' value='Submit Code' class='btn btn-default')
 

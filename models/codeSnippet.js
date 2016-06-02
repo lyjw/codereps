@@ -10,6 +10,7 @@ var CodeSnippetSchema = new Schema({
   input:        { type: String, trim: true, required: true},
   created:     { type: Date, default: Date.now },
   result:       { type: String, trim: true },
+  success:      { type: Boolean },
   difficulty:   { type: String }
 });
 

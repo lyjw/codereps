@@ -1,21 +1,23 @@
-var express = require('express');
-var router = express.Router();
-var Challenge    = require('../models/codeChallenge');
-var CodeSnippet  = require('../models/codeSnippet');
-var helpers = require('helpers');
-var path = require('path');
-var child_process = require('child_process');
+var express         = require('express');
+var router          = express.Router();
+var Challenge      = require('../models/codeChallenge');
+var CodeSnippet    = require('../models/codeSnippet');
+var helpers         = require('../helpers/snippet_helpers');
+var path            = require('path');
+var child_process  = require('child_process');
 
 
 router.get('/new', function(req, res, next) {
+
   // Returns a random CodeChallenge
   Challenge.count().exec(function(err, count) {
     var random = Math.floor(Math.random() * count);
 
-    var promise = Challenge.findOne({ challengeId: random }).exec();
+    var promise = Challenge.findOne({ challengeId: 1 }).exec();
     promise.then(function(challenge) {
       res.render( 'snippets/new', { errors: [], challenge: challenge });
     });
+
   });
 });
 
@@ -48,39 +50,26 @@ router.post("/", function(req, res, next) {
 
     Challenge.findOne({ _id: snippet._challenge }, function(err, challenge) {
       helpers.generateSpecFile(req.body.input, challenge, function() {
-        // Run test file
+
+        // TODO: Can possibly be a function - testInput function
         var testDir = path.resolve(process.cwd() + '/temp');
 
-        console.log(">>>>>>> TESTDIR");
-        console.log(testDir);
-
+        // Run test file
         child_process.exec('jasmine inputSpec.js', { cwd: testDir }, function(err, stdout, strerr) {
 
-          console.log(">>>>>>> ERR");
-          console.log(err);
-          console.log(">>>>>>> STRERR");
-          console.log(strerr);
           // Update snippet to include test results
-          CodeSnippet.findOneAndUpdate( { _id: snippet._id }, { result: stdout }, { new: true }, function(err, snippet) {
+          CodeSnippet.findOneAndUpdate( { _id: snippet._id }, { result: stdout, success: helpers.checkSuccess(stdout) }, { new: true }, function(err, snippet) {
             if (err) {
-              next(err);
+              console.log(err);
             } else {
               res.redirect('/snippets/' + snippet._id);
             }
+
+            // TODO: Delete test file after evaluating
           });
-
         }); // end of child_process
-      });
-    });
-  //
-  //   console.log(">>>>>>>>>>> SNIPPET AFTER CREATING SPEC FILE")
-  //   console.log(snippet);
-  //
-  //   return snippet;
-  //
-  // }).then(function(snippet) {
-
-
+      }); // end of generateSpecFile callback
+    }); // end of Challenge.findOne
   }); // close then
 });
 

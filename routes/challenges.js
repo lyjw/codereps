@@ -25,7 +25,8 @@ router.post("/", function(req, res, next) {
   var challenge = new CodeChallenge({
     language: req.body.language,
     level: req.body.level,
-    challenge: req.body.challenge,
+    description: req.body.description,
+    prefill: req.body.prefill,
     test: req.body.test
   });
 
