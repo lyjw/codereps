@@ -6,7 +6,6 @@ var helpers         = require('../helpers/snippet_helpers');
 var path            = require('path');
 var child_process  = require('child_process');
 
-
 router.get('/new', function(req, res, next) {
 
   // Returns a random CodeChallenge
@@ -74,13 +73,26 @@ router.post("/", function(req, res, next) {
 });
 
 router.get('/:id', function(req, res) {
-  CodeSnippet.findOne({ _id: req.params.id }, function(err, snippet) {
-    if (err) {
-      res.end("Error");
-    } else {
-      res.render("snippets/show", { snippet : snippet });
+
+  CodeSnippet
+    .findOne({ _id: req.params.id })
+    .populate('_challenge')
+    .exec(function(err, snippet) {
+
+      console.log(snippet);
+
+      var message = snippet.result.split("\n")[6];
+      console.log(message);
+
+
+      if (err) {
+        res.end("Error");
+      } else {
+        res.render("snippets/show", { snippet : snippet , message: message});
+      }
     }
-  });
+  );
+
 });
 
 router.get('/', function(req, res, next) {

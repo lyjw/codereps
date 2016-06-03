@@ -38,3 +38,7 @@ jspm_packages
 
 # Test files
 temp
+
+# secrets
+.secrets.yml
+./config/.oauth.js
