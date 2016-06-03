@@ -6,3 +6,51 @@ body {
 a {
   color: #00B7FF;
 }
+
+/****** SNIPPET SHOW *********/
+.success-tick {
+  background-color: green;
+  border-radius: 50%;
+  color: white;
+  font-size: 25px;
+  padding: 10px;
+}
+
+.no-success {
+  border: 2px solid white;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.no-success-text {
+  color: white;
+  font-size: 15px;
+}
+
+/*.error-message {
+  margin-top: 20px;
+  height: 90px;
+  border: 2px solid #B0171F;
+  border-radius: 15px;
+}*/
+
+form.rating {
+  text-align: center;
+  margin-top: 20px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.difficulty-label {
+  margin: 20px;
+  font-size: 18px;
+}
+
+.selected-difficulty {
+  border: 3px solid green;
+  border-radius: 20px;
+}

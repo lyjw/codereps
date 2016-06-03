@@ -1,5 +1,60 @@
 extends ../layout
 
 block content
-  h1 Hello
-    p= snippet.result
+  .row
+    .col-md-8.col-md-offset-2
+      h3= snippet._challenge.description
+
+      pre
+        code.language-js= snippet.input
+
+      if snippet.success
+        //- span.glyphicon.glyphicon-ok.success-tick(aria-hidden="true")
+        div.icon.icon--order-success.svg
+          svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
+            g(fill="none" stroke="#8EC343" stroke-width="2")
+              circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
+              path(d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
+
+      else
+        br
+        h4 Results
+
+        pre
+          code= snippet.result
+
+        .error-message.row
+          br
+          .col-xs-2.icon.icon--order-success.svg
+            svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
+              g(fill="none" stroke="#B0171F" stroke-width="2")
+                circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
+                path(d="M18,20l35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
+                path(d="M53,20l-35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
+            //- span.glyphicon.glyphicon-remove.no-success(aria-hidden="true")
+          .col-xs-10
+            span.no-success-text Oops! It looks like the tests failed to pass.
+
+        hr
+
+        h3.text-center How difficult did you find this challenge?
+
+        form.form-horizontal.rating(action='/snippets' method='post')
+          .form-group
+            label
+              input(type="radio", name="difficulty", value="veasy")
+              span.difficulty-label Very Easy
+            label
+              input(type="radio", name="difficulty", value="easy")
+              span.difficulty-label Easy
+            label
+              input(type="radio", name="difficulty", value="normal")
+              span.difficulty-label Normal
+            label
+              input(type="radio", name="difficulty", value="challenging")
+              span.difficulty-label Challenging
+            label
+              input(type="radio", name="difficulty", value="vchallenging")
+              span.difficulty-label Very Challenging
+          .form-group
+            input(type='submit' value='Submit' class='btn btn-default')
