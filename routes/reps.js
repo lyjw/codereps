@@ -3,18 +3,20 @@ var router          = express.Router();
 var Challenge      = require('../models/codeChallenge');
 var CodeRep        = require('../models/codeRep');
 var helpers         = require('../helpers/rep_helpers');
-var auth            = require('../config/ensureAuthenticated');
+var auth            = require('../config/isLoggedIn');
 var path            = require('path');
 var child_process  = require('child_process');
 
 // router.get('/new', ensureAuthenticated, function(req, res) {
-router.get('/new', auth.ensureAuthenticated, function(req, res) {
+router.get('/new', auth.isLoggedIn, function(req, res) {
+  console.log(">>>>>>>>>>>>>> CURRENT USER");
+  console.log(req.session.passport);
 
   // Returns a random CodeChallenge
   Challenge.count().exec(function(err, count) {
     var random = Math.floor(Math.random() * count);
 
-    var promise = Challenge.findOne({ challengeId: 1 }).exec();
+    var promise = Challenge.findOne({ challengeId: random }).exec();
     promise.then(function(challenge) {
       res.render( 'reps/new', { errors: [], challenge: challenge });
     });

@@ -7,16 +7,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jquery = require('jquery');
-var config = require('./config/.oauth.js');
-var mongoose = require("mongoose");
-var passport = require('passport');
-var githubAuth = require('./config/authentication');
-var session = require('express-session');
-var LocalStrategy = require('passport-local').Strategy;
-var GithubStrategy = require('passport-github2').Strategy;
 var secrets = require('./.secrets.yml');
 
+var passport = require('passport');
+var passportConfig = require('./config/passport');
+var session = require('express-session');
+var githubAuth = require('./config/authentication');
+var config = require('./config/.oauth.js');
+var LocalStrategy = require('passport-local').Strategy;
+var GithubStrategy = require('passport-github2').Strategy;
+var bCrypt = require('bcrypt-nodejs');
+
+var flash = require('connect-flash');
+
 // models
+var mongoose = require('mongoose');
 var User = require('./models/user');
 
 // routes
@@ -49,28 +54,13 @@ app.use(session({ secret: secrets.appkeys.sessionSecret }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/reps', reps);
 app.use('/challenges', challenges);
 app.use('/auth', authentications);
-
-// Passport Session
-passport.serializeUser(function(user, done) {
-  console.log('serializeUser: ' + user._id);
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  User.findById( user._id , function(err, user){
-    if (!err) {
-      done(null, user);
-    } else {
-      done(err, null);
-    }
-  });
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

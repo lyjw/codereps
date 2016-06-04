@@ -2,35 +2,40 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var passport = require('passport');
+var passportConfig = require('../config/passport');
+
+router.get('/login', function(req, res, next) {
+  res.render('users/login', { errors: [] });
+});
+
+router.post('/login', passport.authenticate('login', {
+  successRedirect: '/reps/new',
+  failureRedirect: '/users/login',
+  failureFlash: true
+}));
 
 router.get('/signup', function(req, res, next) {
   res.render('users/signup', { errors: [] });
 });
 
-router.post('/signup', function(req, res, next) {
+router.post('/signup', passport.authenticate('signup', {
+  successRedirect: '/reps/new',
+  failureRedirect: '/login',
+  failureFlash: true
+}));
 
-  if (!req.body.username || !req.body.password) {
-    return res.status(400).json({message: 'Please fill out all fields'});
-  }
-
-  var user = new User ({
-    username:   req.body.username,
-    name:       req.body.name,
-    email:       req.body.email,
-    experience:  req.body.experience,
-    languages:  req.body.languages
-  });
-
-  user.setPassword(req.body.password)
-
-  user.save(function (err){
-    if(err){ return next(err); }
-    return res.json({token: user.generateJWT()})
-  });
+router.get('/settings', function(req, res, next) {
+  res.render('users/settings', { errors: [] });
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('users/login', { errors: [] });
+router.post('/settings', function(req, res, next) {
+  User.findOneAndUpdate( { _id: user._id }, { languages: req.body.languages, experience: req.body.experience }, { new: true }, function(err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/rep/new');
+    }
+  });
 });
 
 router.get('/logout', function(req, res, next) {

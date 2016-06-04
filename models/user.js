@@ -1,7 +1,6 @@
 var mongoose                = require('mongoose');
 var Schema                  = mongoose.Schema;
-var crypto                    = require('crypto');
-// var jwt                       = require('jsonwebtoken');
+var bcrypt                   = require('bcrypt-nodejs');
 var autoIncrement           = require('mongoose-auto-increment');
 
 autoIncrement.initialize(mongoose);
@@ -9,61 +8,23 @@ autoIncrement.initialize(mongoose);
 var UserSchema = new Schema ({
   username:   { type: String, trim: true },
   name:       { type: String, trim: true },
-  oauthID:    { type: Number },
+  oauthID:    Number,
   email:       { type: String, trim: true },
-  hash:        { type: String },
-  salt:         { type: String },
-  experience:  { type: String },
-  languages:  { type: Array },
-  challengeRecords: {},
+  password:   String,
+  experience:  String,
+  languages:  [],
+  challengeRecords: [],
+  role:        { type: String, default: 'user '},
   createdOn:  { type: Date, default: Date.now }
 });
 
-// Convert password into salt/hash before saving
-UserSchema.pre('save', function(next) {
-  if (this.password) {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(this.password, this.salt, 1000, 64).toString('hex');
-  }
-
-  next();
-});
-
-// Password verification
-UserSchema.methods.authenticate = function(password) {
-  var hash = crypto.pbkdf2Sync(password, this.salt, 100, 64).toString('hex');
-  return this.hash === hash;
+UserSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
-// UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
-//     var _this = this;
-//     var possibleUsername = username + (suffix || '');
-//
-//     _this.findOne({ username: possibleUsername }, function(err, user) {
-//       if (!err) {
-//         if (!user) {
-//           callback(possibleUsername);
-//         } else {
-//           return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-//         }
-//       } else {
-//         callback(null);
-//       }
-//     }
-//   ); // end of findOne
-// };
-
-// UserSchema.methods.generateJWT = function() {
-//   var today = new Date();
-//   var exp = new Date(today);
-//   exp.setDate(today.getDate() + 60);
-//
-//   return jwt.sign({
-//     _id: this._id,
-//     username: this.username,
-//     exp: parseInt(exp.getTime() / 1000),
-//   }, NODE_ENV["jwt_secret"]);
-// };
+UserSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'userId' });
 module.exports = mongoose.model("User", UserSchema);

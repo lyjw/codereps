@@ -37,7 +37,7 @@ jspm_packages
 .node_repl_history
 
 # Test files
-temp
+./temp/*
 
 # secrets
 .secrets.yml

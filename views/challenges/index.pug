@@ -5,5 +5,11 @@ block content
     each challenge in challenges
       div.well
         p= challenge.language
-        p= challenge.level
-        p= challenge.challenge
+          span  | 
+          span= challenge.level
+        h4 Description
+        p= challenge.description
+        h4 Prefill
+        pre(style="background-color: white")= challenge.prefill
+        h4 Test
+        pre(style="background-color: white")=  challenge.test

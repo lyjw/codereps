@@ -1,5 +1,5 @@
 // Middleware to ensure user is authenticated
-exports.ensureAuthenticated = function(req, res, next) {
+exports.isLoggedIn = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
