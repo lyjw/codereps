@@ -4,7 +4,7 @@ var User = require('../models/user');
 var passport = require('passport');
 
 router.get('/signup', function(req, res, next) {
-  res.render('users/register', { errors: [] });
+  res.render('users/signup', { errors: [] });
 });
 
 router.post('/signup', function(req, res, next) {
@@ -34,12 +34,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  console.log("Logging out");
-  console.log(">>>>>>>>>>>>>> BEFORE LOGOUT");
-  console.log(req.session.passport);
   req.logout();
-  console.log(">>>>>>>>>>>>>> AFTER LOGOUT");
-  console.log(req.session.passport);
   res.redirect('/');
 });
 

@@ -1,8 +1,8 @@
 var express         = require('express');
 var router          = express.Router();
 var Challenge      = require('../models/codeChallenge');
-var CodeSnippet    = require('../models/codeSnippet');
-var helpers         = require('../helpers/snippet_helpers');
+var CodeRep        = require('../models/codeRep');
+var helpers         = require('../helpers/rep_helpers');
 var auth            = require('../config/ensureAuthenticated');
 var path            = require('path');
 var child_process  = require('child_process');
@@ -16,7 +16,7 @@ router.get('/new', auth.ensureAuthenticated, function(req, res) {
 
     var promise = Challenge.findOne({ challengeId: 1 }).exec();
     promise.then(function(challenge) {
-      res.render( 'snippets/new', { errors: [], challenge: challenge });
+      res.render( 'reps/new', { errors: [], challenge: challenge });
     });
 
   });
@@ -27,29 +27,29 @@ router.post("/", function(req, res, next) {
 
   promise.then(function(challenge) {
 
-    var snippet = new CodeSnippet({
+    var rep = new CodeRep({
       _challenge: challenge._id,
       input: req.body.input
     });
 
-    return snippet;
+    return rep;
 
-  }).then(function(snippet) {
+  }).then(function(rep) {
 
-    snippet.save(function(err, snippet) {
+    rep.save(function(err, rep) {
       if (err) {
         console.log(err);
-        res.render('snippets/new', { errors: err.errors });
+        res.render('reps/new', { errors: err.errors });
       } else {
-        return snippet;
+        return rep;
       }
     });
 
-    return snippet;
+    return rep;
 
-  }).then(function(snippet) {
+  }).then(function(rep) {
 
-    Challenge.findOne({ _id: snippet._challenge }, function(err, challenge) {
+    Challenge.findOne({ _id: rep._challenge }, function(err, challenge) {
       helpers.generateSpecFile(req.body.input, challenge, function() {
 
         // TODO: Can possibly be a function - testInput function
@@ -58,12 +58,12 @@ router.post("/", function(req, res, next) {
         // Run test file
         child_process.exec('jasmine inputSpec.js', { cwd: testDir }, function(err, stdout, strerr) {
 
-          // Update snippet to include test results
-          CodeSnippet.findOneAndUpdate( { _id: snippet._id }, { result: stdout, success: helpers.checkSuccess(stdout) }, { new: true }, function(err, snippet) {
+          // Update rep to include test results
+          CodeRep.findOneAndUpdate( { _id: rep._id }, { result: stdout, success: helpers.checkSuccess(stdout) }, { new: true }, function(err, rep) {
             if (err) {
               console.log(err);
             } else {
-              res.redirect('/snippets/' + snippet._id);
+              res.redirect('/reps/' + rep._id);
             }
 
             // TODO: Delete test file after evaluating
@@ -76,21 +76,21 @@ router.post("/", function(req, res, next) {
 
 router.get('/:id', function(req, res) {
 
-  CodeSnippet
+  CodeRep
     .findOne({ _id: req.params.id })
     .populate('_challenge')
-    .exec(function(err, snippet) {
+    .exec(function(err, rep) {
 
-      console.log(snippet);
+      console.log(rep);
 
-      var message = snippet.result.split("\n")[6];
+      var message = rep.result.split("\n")[6];
       console.log(message);
 
 
       if (err) {
         res.end("Error");
       } else {
-        res.render("snippets/show", { snippet : snippet , message: message});
+        res.render("reps/show", { rep : rep , message: message});
       }
     }
   );
@@ -98,13 +98,13 @@ router.get('/:id', function(req, res) {
 });
 
 router.get('/', function(req, res, next) {
-  CodeSnippet.find({}, function(err, snippets) {
+  CodeRep.find({}, function(err, reps) {
     if (err) {
       next(err);
-    } else if (snippets) {
-      res.render('snippets/index', { snippets: snippets });
+    } else if (reps) {
+      res.render('reps/index', { reps: reps });
     } else {
-      next(new Error("Failed to load snippets."));
+      next(new Error("Failed to load reps."));
     }
   });
 });

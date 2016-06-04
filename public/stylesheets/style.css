@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 
-/****** SNIPPET SHOW *********/
+/****** Rep SHOW *********/
 .success-tick {
   background-color: green;
   border-radius: 50%;
@@ -53,4 +53,12 @@ input[type="radio"] {
 .selected-difficulty {
   border: 3px solid green;
   border-radius: 20px;
+}
+
+/*** USERS *****/
+button.github-auth {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  margin-top: 20px;
 }

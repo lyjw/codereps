@@ -1,14 +1,31 @@
 extends ../layout
 
 block content
-  .sign-up-wall
-    form(action='/login', method='POST')
-      input(type='text', name='username' class='form-control', placeholder='Email',required, autofocus)
-      input(type='password', name='password' class='form-control', placeholder='Password', required)
-      button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in
-      span.clearfix
 
-  a(href='/signup', class='text-center new-account') Create an account
-  #message
-  if message
-    h1.text-center.error-message #{message}
+  h1.text-center Create a CodeReps Account
+
+  .row
+    .col-sm-8.col-sm-offset-2
+      form(action='/login', method='POST')
+        input(type='text', name='username' class='form-control', placeholder='Email',required, autofocus)
+        input(type='password', name='password' class='form-control', placeholder='Password', required)
+        button(class='btn btn-lg btn-primary btn-block', type='submit') Create
+
+  .row
+    .col-sm-8.col-sm-offset-2
+      a(href="/auth/github")
+        button.btn.btn-default.github-auth Sign Up with Github
+
+  .row
+    .col-sm-8.col-sm-offset-2
+      h4.text-center Already have an account?
+        a(href='/users/login')  Log In
+
+    if message
+      h1.text-center.error-message #{message}
+
+      a(href="/auth/github") Login via Github
+      a(href="users/logout") Logout
+
+      a(href="/auth/github") Login via Github
+      a(href="users/logout") Logout

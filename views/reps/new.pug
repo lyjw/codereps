@@ -4,7 +4,7 @@ block content
   h3= challenge.description
   br
   .col-md-6
-    form.form-horizontal(action='/snippets' method='post')
+    form.form-horizontal(action='/reps' method='post')
       .form-group
         input(type='hidden', name='challengeId', value=challenge.challengeId)
       .form-group

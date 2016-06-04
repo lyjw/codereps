@@ -6,5 +6,5 @@ block content
   a(href="/auth/github") Login via Github
   a(href="users/logout") Logout
 
-  if error
-    div= error
+  if (currentSession !== undefined)
+    p= currentSession.user.name

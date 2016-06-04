@@ -22,7 +22,7 @@ var User = require('./models/user');
 // routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var snippets = require('./routes/snippets');
+var reps = require('./routes/reps');
 var challenges = require('./routes/challenges');
 var authentications = require('./routes/authentications');
 
@@ -52,7 +52,7 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/snippets', snippets);
+app.use('/reps', reps);
 app.use('/challenges', challenges);
 app.use('/auth', authentications);
 

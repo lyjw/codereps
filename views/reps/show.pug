@@ -3,12 +3,12 @@ extends ../layout
 block content
   .row
     .col-md-8.col-md-offset-2
-      h3= snippet._challenge.description
+      h3= rep._challenge.description
 
       pre
-        code.language-js= snippet.input
+        code.language-js= rep.input
 
-      if snippet.success
+      if rep.success
         //- span.glyphicon.glyphicon-ok.success-tick(aria-hidden="true")
         div.icon.icon--order-success.svg
           svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
@@ -21,7 +21,7 @@ block content
         h4 Results
 
         pre
-          code= snippet.result
+          code= rep.result
 
         .error-message.row
           br
@@ -39,7 +39,7 @@ block content
 
         h3.text-center How difficult did you find this challenge?
 
-        form.form-horizontal.rating(action='/snippets' method='post')
+        form.form-horizontal.rating(action='/reps' method='post')
           .form-group
             label
               input(type="radio", name="difficulty", value="veasy")
