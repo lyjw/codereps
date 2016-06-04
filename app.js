@@ -24,6 +24,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var snippets = require('./routes/snippets');
 var challenges = require('./routes/challenges');
+var authentications = require('./routes/authentications');
 
 // mongoose
 var connection = mongoose.connect("mongodb://localhost/journal_prompter_4");
@@ -53,6 +54,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/snippets', snippets);
 app.use('/challenges', challenges);
+app.use('/auth', authentications);
 
 // Passport Session
 passport.serializeUser(function(user, done) {
@@ -69,18 +71,6 @@ passport.deserializeUser(function(user, done) {
     }
   });
 });
-
-// OAuth Github
-app.get('/auth/github',
-  passport.authenticate('github'), function(req, res){});
-
-app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
-  function(req, res, err) {
-    console.log(">>>>>>>>>>REQ")
-    console.log(req.session);
-    res.redirect('/');
-  });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

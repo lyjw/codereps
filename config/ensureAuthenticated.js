@@ -4,5 +4,5 @@ exports.ensureAuthenticated = function(req, res, next) {
     return next();
   }
 
-  res.redirect('/');
+  res.redirect('/users/signup');
 };
