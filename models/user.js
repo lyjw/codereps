@@ -1,7 +1,7 @@
 var mongoose                = require('mongoose');
 var Schema                  = mongoose.Schema;
-// var passportLocalMongoose = require('passport-local-mongoose');
 var crypto                    = require('crypto');
+// var jwt                       = require('jsonwebtoken');
 var autoIncrement           = require('mongoose-auto-increment');
 
 autoIncrement.initialize(mongoose);
@@ -19,6 +19,7 @@ var UserSchema = new Schema ({
   createdOn:  { type: Date, default: Date.now }
 });
 
+// Convert password into salt/hash before saving
 UserSchema.pre('save', function(next) {
   if (this.password) {
     this.salt = crypto.randomBytes(16).toString('hex');
@@ -28,31 +29,30 @@ UserSchema.pre('save', function(next) {
   next();
 });
 
+// Password verification
 UserSchema.methods.authenticate = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 100, 64).toString('hex');
   return this.hash === hash;
 };
 
-UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
-    var _this = this;
-    var possibleUsername = username + (suffix || '');
-
-    _this.findOne({ username: possibleUsername }, function(err, user) {
-      if (!err) {
-        if (!user) {
-          callback(possibleUsername);
-        } else {
-          return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-        }
-      } else {
-        callback(null);
-      }
-    }
-  ); // end of findOne
-};
-
-
+// UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
+//     var _this = this;
+//     var possibleUsername = username + (suffix || '');
 //
+//     _this.findOne({ username: possibleUsername }, function(err, user) {
+//       if (!err) {
+//         if (!user) {
+//           callback(possibleUsername);
+//         } else {
+//           return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+//         }
+//       } else {
+//         callback(null);
+//       }
+//     }
+//   ); // end of findOne
+// };
+
 // UserSchema.methods.generateJWT = function() {
 //   var today = new Date();
 //   var exp = new Date(today);
@@ -62,9 +62,8 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 //     _id: this._id,
 //     username: this.username,
 //     exp: parseInt(exp.getTime() / 1000),
-//   }, ENV["jwt_secret"]);
+//   }, NODE_ENV["jwt_secret"]);
 // };
 
-// UserSchema.plugin(passportLoginMongoose);
 UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'userId' });
 module.exports = mongoose.model("User", UserSchema);

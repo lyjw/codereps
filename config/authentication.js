@@ -20,16 +20,17 @@ module.exports = passport.use(new GithubStrategy({
         } else {
           var user = new User({
             oauthID: profile.id,
-            username: profile.login,
-            name: profile.name,
-            email: profile.email
+            username: profile.username,
+            name: profile.displayName,
+            email: profile._json.email
           });
 
-          user.save(function(err) {
+          user.save(function(err, user) {
             if (err) {
               console.log(err);
             } else {
               console.log("Saving User...");
+              // Automatically calls passport.serializeUser()
               done(null, user);
             }
           });

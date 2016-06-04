@@ -11,9 +11,10 @@ var config = require('./config/.oauth.js');
 var mongoose = require("mongoose");
 var passport = require('passport');
 var githubAuth = require('./config/authentication');
-var expressSession = require('express-session');
+var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 var GithubStrategy = require('passport-github2').Strategy;
+var secrets = require('./.secrets.yml');
 
 // models
 var User = require('./models/user');
@@ -43,7 +44,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSession({secret: 'mySecretKey'}));
+app.use(session({ secret: secrets.appkeys.sessionSecret }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -52,14 +54,14 @@ app.use('/users', users);
 app.use('/snippets', snippets);
 app.use('/challenges', challenges);
 
+// Passport Session
 passport.serializeUser(function(user, done) {
   console.log('serializeUser: ' + user._id);
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  User.findById(id, function(err, user){
-    console.log(user);
+  User.findById( user._id , function(err, user){
     if (!err) {
       done(null, user);
     } else {
@@ -68,45 +70,17 @@ passport.deserializeUser(function(user, done) {
   });
 });
 
-// passport config
-// var User = require('./models/user');
-// require('./config/authentication');
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-
-// routes
-app.get('/account', ensureAuthenticated, function(req, res){
-  User.findById(req.session.passport.user, function(err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('/account', { user: user });
-    }
-  });
-});
-
 // OAuth Github
 app.get('/auth/github',
-  passport.authenticate('github'),
-  function(req, res){});
+  passport.authenticate('github'), function(req, res){});
 
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect('/account');
+  function(req, res, err) {
+    console.log(">>>>>>>>>>REQ")
+    console.log(req.session);
+    res.redirect('/');
   });
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-// test authentication
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/');
-}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,10 +3,12 @@ var router          = express.Router();
 var Challenge      = require('../models/codeChallenge');
 var CodeSnippet    = require('../models/codeSnippet');
 var helpers         = require('../helpers/snippet_helpers');
+var auth            = require('../config/ensureAuthenticated');
 var path            = require('path');
 var child_process  = require('child_process');
 
-router.get('/new', function(req, res, next) {
+// router.get('/new', ensureAuthenticated, function(req, res) {
+router.get('/new', auth.ensureAuthenticated, function(req, res) {
 
   // Returns a random CodeChallenge
   Challenge.count().exec(function(err, count) {

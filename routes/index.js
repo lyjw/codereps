@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  console.log(">>>>>>>>>>>>>> INSIDE THE INDEX PAGE");
+  console.log(req.session.passport);
+
+  res.render('index', { title: 'CodeReps' });
 });
 
 module.exports = router;
