@@ -9,9 +9,16 @@ router.get('/github',
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   function(req, res, err) {
-    console.log(">>>>>>>>>>REQ")
-    console.log(req.session);
-    res.redirect('/');
+    console.log(">>>>>>>> CHECK EXPERIENCE");
+    console.log(req.session.passport.user.experience);
+    console.log(">>>>>>>> CHECK EXPERIENCE TRUE OR FALSE");
+    console.log(req.session.passport.user.experience === undefined);
+
+    if (req.session.passport.user.experience === undefined) {
+      res.redirect("/users/settings");
+    } else {
+      res.redirect("/reps/new");
+    }
   });
 
 module.exports = router;

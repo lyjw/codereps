@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  h1.settings-header.text-center Rep Settings
+  br
+  .row.account-wall
+    .col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
+      form(action='/users/settings', method='post')
+        .form-group.text-center
+          h3.settings-heading.experience Experience
+          label
+            input(type="radio", name="experience", value="beginner")
+            span.experience-label Beginner
+          label
+            input(type="radio", name="experience", value="intermediate")
+            span.experience-label Intermediate
+          label
+            input(type="radio", name="experience", value="advanced")
+            span.experience-label Advanced
+        hr
+        .form-group.text-center
+          h3.settings-heading Languages
+          .language-div
+            label(for="js") Javascript
+              img.language-logo(for="js" src="../images/javascript.png")
+            input#js(type="checkbox", name="languages", value="Javascript")
+          .language-div
+            label(for="ruby") Ruby
+              img.language-logo(for="ruby" src="../images/ruby.png")
+            input#ruby(type="checkbox", name="languages", value="Ruby")
+
+          button(class='btn btn-lg btn-default btn-block', type='submit') Get Started
+
+
+  if message
+    h1.text-center.error-message= message

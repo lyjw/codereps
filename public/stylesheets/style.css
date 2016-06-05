@@ -1,11 +1,62 @@
+/*** FONTS ***/
+@font-face {
+  font-family: 'gt_walsheim_pro_trialmedium';
+  src: url('../fonts/gt-walsheim-pro-trial-medium-webfont.woff2') format('woff2'),
+        url('../fonts/gt-walsheim-pro-trial-medium-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'gt_walsheim_pro_triallight';
+  src: url('../fonts/gt-walsheim-pro-trial-light-webfont.woff2') format('woff2'),
+        url('../fonts/gt-walsheim-pro-trial-light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'gt_walsheim_pro_trialthin';
+  src: url('../fonts/gt-walsheim-pro-trial-thin-webfont.woff2') format('woff2'),
+        url('../fonts/gt-walsheim-pro-trial-thin-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'gt_walsheim_pro_trialMdOb';
+  src: url('../fonts/gt-walsheim-pro-trial-medium-oblique-webfont.woff2') format('woff2'),
+        url('../fonts/gt-walsheim-pro-trial-medium-oblique-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'gt_walsheim_pro_trialbold';
+  src: url('../fonts/gt-walsheim-pro-trial-bold-webfont.woff2') format('woff2'),
+      url('../fonts/gt-walsheim-pro-trial-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+/*** GENERAL ***/
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: rgba(138,171,173,0.55) !important;
+  font-family: 'gt_walsheim_pro_triallight' !important;
+  background-color: rgba(166, 188, 189, 0.55) !important;
 }
 
 a {
   color: #00B7FF;
+}
+
+/*** HOME PAGE ***/
+#main-heading {
+  font-family: 'gt_walsheim_pro_trialmedium';
+  font-size: 100px;
+  color: white;
 }
 
 /****** Rep SHOW *********/
@@ -42,7 +93,8 @@ form.rating {
   margin-top: 20px;
 }
 
-input[type="radio"] {
+input[type="radio"],
+input[type="checkbox"] {
   display: none;
 }
 
@@ -51,9 +103,42 @@ input[type="radio"] {
   font-size: 18px;
 }
 
+.settings-header {
+  font-family: 'gt_walsheim_pro_trialMdOb';
+  color: white;
+}
+
+h3.settings-heading {
+  font-family: 'gt_walsheim_pro_trialbold';
+}
+
+h3.settings-heading.experience {
+  margin-bottom: 28px;
+}
+
 .selected-difficulty {
-  border: 3px solid green;
-  border-radius: 20px;
+  color: #466790;
+  font-size: 25px !important;
+}
+
+.selected-language img {
+  opacity: 0.9 !important;
+  -webkit-filter: grayscale(0%) !important;
+  filter: grayscale(0%);
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.language-div {
+  display: inline-block;
+  width: 100px;
+  margin: 28px;
+}
+
+.language-div label {
+  font-size: 20px;
 }
 
 /*** USERS *****/
@@ -62,4 +147,18 @@ button.github-auth {
   height: 40px;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+.experience-label {
+  margin: 30px;
+  font-size: 18px;
+}
+
+img.language-logo {
+  height: 80px;
+  width: 80px;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  opacity: 0.5;
+  margin-top: 10px;
 }

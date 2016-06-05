@@ -19,8 +19,8 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', passport.authenticate('signup', {
-  successRedirect: '/reps/new',
-  failureRedirect: '/login',
+  successRedirect: '/users/settings',
+  failureRedirect: '/users/login',
   failureFlash: true
 }));
 
@@ -29,11 +29,12 @@ router.get('/settings', function(req, res, next) {
 });
 
 router.post('/settings', function(req, res, next) {
-  User.findOneAndUpdate( { _id: user._id }, { languages: req.body.languages, experience: req.body.experience }, { new: true }, function(err, user) {
+  var current_user = req.session.passport.user;
+  User.findOneAndUpdate( { _id: current_user._id }, { languages: req.body.languages, experience: req.body.experience }, { new: true }, function(err, user) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect('/rep/new');
+      res.redirect('/reps/new');
     }
   });
 });

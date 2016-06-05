@@ -1,7 +1,6 @@
 extends ../layout
 
 block content
-
   h1.text-center Create a CodeReps Account
 
   .row
@@ -33,6 +32,8 @@ block content
       h3.text-center or
       a(href="/auth/github")
         button.btn.btn-default.github-auth Sign Up with Github
+
+
 
     if message
       h1.text-center.error-message #{message}

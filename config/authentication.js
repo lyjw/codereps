@@ -31,7 +31,7 @@ module.exports = passport.use(new GithubStrategy({
             } else {
               console.log("Saving User...");
               // Automatically calls passport.serializeUser()
-              done(null, user);
+              done(null, user, { more: "hello" });
             }
           });
         }
