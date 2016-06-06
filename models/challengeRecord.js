@@ -12,9 +12,22 @@ var ChallengeRecordSchema = new Schema({
   attempts: { type: Number, default: 0 },
   success_attempts: { type: Number, default: 0 },
   gravity: { type: Number, default: 1 },
-  status: { type: String, default: 'active' },
-  createdOn: { type: Date, default: Date.now },
+  status: { type: String, default: 'active' }
+},
+{
+  timestamps: true
 });
 
-CodeChallengeSchema.plugin(autoIncrement.plugin, { model: 'CodeChallenge', field: 'challengeId' });
-module.exports = mongoose.model("CodeChallenge", CodeChallengeSchema);
+// ChallengeRecordSchema.post('save', function(record, next) {
+//   console.log(">>>> INSIDE POST SAVE");
+//   User.findByIdAndUpdate(
+//     record._user,
+//     { $push: { "challengeRecords": record } },
+//     { new: true },
+//     function(err, user) {
+//       if (err) { next(err); }
+//   });
+// });
+
+ChallengeRecordSchema.plugin(autoIncrement.plugin, { model: 'ChallengeRecord', field: 'recordId' });
+module.exports = mongoose.model("ChallengeRecord", ChallengeRecordSchema);

@@ -6,7 +6,9 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.5",
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.4.0",
     "body-parser": "~1.13.2",
     "bootstrap": "^3.3.6",
     "connect-flash": "^0.1.1",

@@ -14,7 +14,7 @@ var UserSchema = new Schema ({
   experience:  String,
   languages:  [],
   challengeRecords: [],
-  role:        { type: String, default: 'user '},
+  role:        { type: String, default: 'user' },
   createdOn:  { type: Date, default: Date.now }
 });
 

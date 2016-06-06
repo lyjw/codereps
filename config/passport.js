@@ -4,12 +4,12 @@ var User       = require('../models/user');
 var local       = require('./strategies/local');
 var LocalStrategy = require('passport-local').Strategy;
 
-module.exports = passport.serializeUser(function(user, done) {
+exports = passport.serializeUser(function(user, done) {
   console.log('serializeUser: ' + user._id);
   done(null, user);
 });
 
-module.exports = passport.deserializeUser(function(user, done) {
+exports = passport.deserializeUser(function(user, done) {
   User.findById( user._id , function(err, user){
     if (!err) {
       done(null, user);
@@ -19,11 +19,8 @@ module.exports = passport.deserializeUser(function(user, done) {
   });
 });
 
-module.exports = passport.use('login', new LocalStrategy({ passReqToCallback: true },
+exports = passport.use('login', new LocalStrategy({ passReqToCallback: true },
   function(req, username, password, done) {
-
-    console.log("I'M INSIDE THE LOGIN ACTION");
-
     User.findOne({ username: username },
       function(err, user) {
         if (err) { return done(err); }
@@ -43,7 +40,7 @@ module.exports = passport.use('login', new LocalStrategy({ passReqToCallback: tr
     );
 }));
 
-module.exports = passport.use('signup', new LocalStrategy({ passReqToCallback: true }, function(req, username, password, done) {
+exports = passport.use('signup', new LocalStrategy({ passReqToCallback: true }, function(req, username, password, done) {
     User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
 

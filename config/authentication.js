@@ -2,9 +2,9 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var GithubStrategy = require('passport-github2').Strategy;
 var User = require('../models/user');
-var config = require('./.oauth.js');
+var config = require('./.oauth');
 
-module.exports = passport.use(new GithubStrategy({
+exports = passport.use(new GithubStrategy({
     clientID: config.github.clientID,
     clientSecret: config.github.clientSecret,
     callbackURL: config.github.callbackURL
@@ -30,8 +30,7 @@ module.exports = passport.use(new GithubStrategy({
               console.log(err);
             } else {
               console.log("Saving User...");
-              // Automatically calls passport.serializeUser()
-              done(null, user, { more: "hello" });
+              done(null, user);
             }
           });
         }

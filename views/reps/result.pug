@@ -9,7 +9,6 @@ block content
         code.language-js= rep.input
 
       if rep.success
-        //- span.glyphicon.glyphicon-ok.success-tick(aria-hidden="true")
         div.icon.icon--order-success.svg
           svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
             g(fill="none" stroke="#8EC343" stroke-width="2")
@@ -31,15 +30,16 @@ block content
                 circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
                 path(d="M18,20l35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
                 path(d="M53,20l-35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
-            //- span.glyphicon.glyphicon-remove.no-success(aria-hidden="true")
           .col-xs-10
             span.no-success-text Oops! It looks like the tests failed to pass.
 
         hr
 
-        h3.text-center How difficult did you find this challenge?
+        h3.text-center Rate this Challenge
 
-        form.form-horizontal.rating(action='/reps' method='post')
+        form.form-horizontal.rating(action='/reps/result' method='post')
+          .form-group
+            input(type='hidden', name='repID', value=rep.repId)
           .form-group
             label
               input(type="radio", name="difficulty", value="veasy")

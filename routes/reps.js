@@ -1,34 +1,45 @@
 var express         = require('express');
 var router          = express.Router();
 var Challenge      = require('../models/codeChallenge');
+var ChallengeRecord      = require('../models/challengeRecord');
 var CodeRep        = require('../models/codeRep');
 var helpers         = require('../helpers/rep_helpers');
+var challengeService = require('../helpers/challenge_service');
 var auth            = require('../config/isLoggedIn');
 var path            = require('path');
 var child_process  = require('child_process');
+var flash = require('connect-flash');
 
-// router.get('/new', ensureAuthenticated, function(req, res) {
 router.get('/new', auth.isLoggedIn, function(req, res) {
-  console.log(">>>>>>>>>>>>>> CURRENT USER");
-  console.log(req.session.passport);
+  var current_user = req.session.passport.user;
 
-  // Returns a random CodeChallenge
-  Challenge.count().exec(function(err, count) {
-    var random = Math.floor(Math.random() * count);
+  console.log(">>>>>>> CURRENT USER");
+  console.log(current_user);
 
-    var promise = Challenge.findOne({ challengeId: random }).exec();
-    promise.then(function(challenge) {
-      res.render( 'reps/new', { errors: [], challenge: challenge });
-    });
+  // Returns a random CodeChallenge from ChallengeRecords
+   challengeService.findRecord(current_user, function(record) {
 
-  });
+     console.log(">>>>>>>>>>>>> FIND RECORD");
+     console.log(record);
+
+     ChallengeRecord
+       .findOne({ _id: record._id })
+       .populate('_challenge')
+       .exec(function(err, record) {
+
+         if (err) {
+           res.end("Error");
+         } else {
+           res.render( 'reps/new', { errors: [], challenge: record._challenge });
+         }
+       });
+   });
 });
 
 router.post("/", function(req, res, next) {
   var promise = Challenge.findOne({ challengeId: req.body.challengeId }).exec();
 
   promise.then(function(challenge) {
-
     var rep = new CodeRep({
       _challenge: challenge._id,
       input: req.body.input
@@ -65,7 +76,8 @@ router.post("/", function(req, res, next) {
             if (err) {
               console.log(err);
             } else {
-              res.redirect('/reps/' + rep._id);
+              req.flash('rep_ID', rep._id)
+              res.redirect('/reps/result');
             }
 
             // TODO: Delete test file after evaluating
@@ -73,30 +85,64 @@ router.post("/", function(req, res, next) {
         }); // end of child_process
       }); // end of generateSpecFile callback
     }); // end of Challenge.findOne
-  }); // close then
+  }).catch(console.log.bind(console)); // close then
 });
 
-router.get('/:id', function(req, res) {
-
+router.get('/result', function(req, res) {
   CodeRep
-    .findOne({ _id: req.params.id })
+    .findOne({ _id: req.flash('rep_ID') })
     .populate('_challenge')
     .exec(function(err, rep) {
-
-      console.log(rep);
-
-      var message = rep.result.split("\n")[6];
-      console.log(message);
-
-
       if (err) {
         res.end("Error");
       } else {
-        res.render("reps/show", { rep : rep , message: message});
+        res.render("reps/result", { rep : rep} );
       }
     }
   );
+});
 
+router.post('/result', function(req, res) {
+  var current_user = req.session.passport.user;
+
+  console.log(">>>>>>>>> CURRENT USER");
+  console.log(current_user._id);
+
+  challengeService.calculateGravity(req.body.difficulty, function(gravity) {
+
+    CodeRep.findOne({ repId: req.body.repID }, function(err, rep) {
+      if (err) { next(err); }
+
+      console.log(">>>>>>>>>> REP CHALLENGE ID");
+      console.log(rep._challenge);
+
+      // Update User's Challenge Record with the new gravity and other stats
+      ChallengeRecord.findOneAndUpdate(
+        { _user: ObjectId(current_user._id), _challenge: ObjectId(rep._challenge._id) },
+        { gravity: gravity,
+          $inc: { attempts: 1, success_attempts: rep.success ? 1 : 0 }
+        }, { new: true }, function(err, record) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(">>>>>>>>> UPDATED CHALLENGE RECORD");
+            console.log(record);
+            req.flash('record_ID', record._id);
+            res.redirect("/stats");
+          }
+      });
+    });
+  });
+});
+
+router.get('/stats', function(req, res) {
+  ChallengeRecord.findById(req.flash('record_ID'), function(err, record) {
+    if (err) {
+      res.end("Error");
+    } else {
+      res.render("reps/stats", { record : record });
+    }
+  });
 });
 
 router.get('/', function(req, res, next) {

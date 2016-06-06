@@ -3,6 +3,8 @@ var router = express.Router();
 var User = require('../models/user');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
+var challengeService = require('../helpers/challenge_service');
+var async = require('async')
 
 router.get('/login', function(req, res, next) {
   res.render('users/login', { errors: [] });
@@ -30,11 +32,15 @@ router.get('/settings', function(req, res, next) {
 
 router.post('/settings', function(req, res, next) {
   var current_user = req.session.passport.user;
+
   User.findOneAndUpdate( { _id: current_user._id }, { languages: req.body.languages, experience: req.body.experience }, { new: true }, function(err, user) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect('/reps/new');
+      challengeService.createChallengeRecords(user, function() {
+        console.log(">>>>>>>>>> NOW PROCEDING TO RENDER NEW");;
+        res.redirect('/reps/new');
+      });
     }
   });
 });

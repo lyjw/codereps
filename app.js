@@ -17,6 +17,9 @@ var config = require('./config/.oauth.js');
 var LocalStrategy = require('passport-local').Strategy;
 var GithubStrategy = require('passport-github2').Strategy;
 var bCrypt = require('bcrypt-nodejs');
+var Promise = require("bluebird");
+var async = require('async')
+
 
 var flash = require('connect-flash');
 
