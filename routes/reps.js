@@ -1,6 +1,7 @@
 var express         = require('express');
 var router          = express.Router();
 var Challenge      = require('../models/codeChallenge');
+var User      = require('../models/user');
 var ChallengeRecord      = require('../models/challengeRecord');
 var CodeRep        = require('../models/codeRep');
 var helpers         = require('../helpers/rep_helpers');
@@ -11,29 +12,32 @@ var child_process  = require('child_process');
 var flash = require('connect-flash');
 
 router.get('/new', auth.isLoggedIn, function(req, res) {
-  var current_user = req.session.passport.user;
+  var promise = User.findOne({ userId: req.session.passport.user.userId }).exec();
 
-  console.log(">>>>>>> CURRENT USER");
-  console.log(current_user);
+  promise.then(function(user) {
+    console.log(">>>>>>> CURRENT USER");
+    console.log(user);
 
-  // Returns a random CodeChallenge from ChallengeRecords
-   challengeService.findRecord(current_user, function(record) {
+    // Returns a random CodeChallenge from ChallengeRecords
+     challengeService.findRecord(user, function(record) {
 
-     console.log(">>>>>>>>>>>>> FIND RECORD");
-     console.log(record);
+       console.log(">>>>>>>>>>>>> FIND RECORD");
+       console.log(record);
 
-     ChallengeRecord
-       .findOne({ _id: record._id })
-       .populate('_challenge')
-       .exec(function(err, record) {
+       ChallengeRecord
+         .findOne({ _id: record._id })
+         .populate('_challenge')
+         .exec(function(err, record) {
 
-         if (err) {
-           res.end("Error");
-         } else {
-           res.render( 'reps/new', { errors: [], challenge: record._challenge });
-         }
-       });
-   });
+           if (err) {
+             res.end("Error");
+           } else {
+             res.render( 'reps/new', { errors: [], challenge: record._challenge });
+           }
+         });
+     });
+
+  });
 });
 
 router.post("/", function(req, res, next) {
@@ -103,33 +107,50 @@ router.get('/result', function(req, res) {
 });
 
 router.post('/result', function(req, res) {
-  var current_user = req.session.passport.user;
+  var promise = User.findOne({ userId: req.session.passport.user.userId }).exec();
 
-  console.log(">>>>>>>>> CURRENT USER");
-  console.log(current_user._id);
+  promise.then(function(user) {
+    console.log(">>>>>>>>> CURRENT USER INSIDE RESULT");
+    console.log(user);
 
-  challengeService.calculateGravity(req.body.difficulty, function(gravity) {
+    challengeService.calculateGravity(req.body.difficulty, function(gravity) {
 
-    CodeRep.findOne({ repId: req.body.repID }, function(err, rep) {
-      if (err) { next(err); }
+      CodeRep.findOne({ repId: req.body.repID }, function(err, rep) {
+        if (err) { next(err); }
 
-      console.log(">>>>>>>>>> REP CHALLENGE ID");
-      console.log(rep._challenge);
+        console.log(">>>>>>>>>> REP CHALLENGE ID");
+        console.log(rep._challenge);
 
-      // Update User's Challenge Record with the new gravity and other stats
-      ChallengeRecord.findOneAndUpdate(
-        { _user: ObjectId(current_user._id), _challenge: ObjectId(rep._challenge._id) },
-        { gravity: gravity,
-          $inc: { attempts: 1, success_attempts: rep.success ? 1 : 0 }
-        }, { new: true }, function(err, record) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(">>>>>>>>> UPDATED CHALLENGE RECORD");
+        // Update User's Challenge Record with the new gravity and other stats
+        ChallengeRecord
+          .findOne({})
+          .where('_id').in(user.challengeRecords)
+          .where('_challenge', rep._challenge)
+          .exec(function(err, record) {
+            console.log(">>>>>>>>> SHOW ME THE USER'S CHALLENGE");
             console.log(record);
-            req.flash('record_ID', record._id);
-            res.redirect("/stats");
-          }
+
+            challengeService.updateRecord(record, gravity, rep, function() {
+              req.flash('record_ID', record._id);
+              res.redirect("/reps/stats");
+            });
+          });
+
+          // .findOneAndUpdate(
+          //   { _challenge: rep._challenge._id },
+          //   { gravity: gravity,
+          //     $inc: { attempts: 1, success_attempts: rep.success ? 1 : 0 }
+          //   }, { new: true }, function(err, record) {
+          //     if (err) {
+          //       console.log(err);
+          //     } else {
+          //       console.log(">>>>>>>>> UPDATED CHALLENGE RECORD");
+          //       console.log(record);
+          //       req.flash('record_ID', record._id);
+          //       res.redirect("/stats");
+          //     }
+          //   }
+        // );
       });
     });
   });

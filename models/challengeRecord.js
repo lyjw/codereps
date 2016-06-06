@@ -18,16 +18,22 @@ var ChallengeRecordSchema = new Schema({
   timestamps: true
 });
 
-// ChallengeRecordSchema.post('save', function(record, next) {
-//   console.log(">>>> INSIDE POST SAVE");
-//   User.findByIdAndUpdate(
-//     record._user,
-//     { $push: { "challengeRecords": record } },
-//     { new: true },
-//     function(err, user) {
-//       if (err) { next(err); }
-//   });
-// });
+ChallengeRecordSchema.post('save', function(record, next) {
+  console.log(">>>> INSIDE POST SAVE");
+  console.log(record);
+
+  User.findByIdAndUpdate(
+    record._user,
+    { $push: { "challengeRecords": record } },
+    { new: true },
+    function(err, user) {
+      if (err) { next(err); }
+      console.log(">>>> USER INSIDE POST SAVE");
+      console.log(user);
+      next();
+    }
+  );
+});
 
 ChallengeRecordSchema.plugin(autoIncrement.plugin, { model: 'ChallengeRecord', field: 'recordId' });
 module.exports = mongoose.model("ChallengeRecord", ChallengeRecordSchema);
