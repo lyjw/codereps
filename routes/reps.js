@@ -51,9 +51,7 @@ router.post("/", function(req, res, next) {
     });
 
     return rep;
-
   }).then(function(rep) {
-
     rep.save(function(err, rep) {
       if (err) {
         console.log(err);
@@ -62,40 +60,17 @@ router.post("/", function(req, res, next) {
         return rep;
       }
     });
-
     return rep;
-
   }).then(function(rep) {
-
     Challenge.findOne({ _id: rep._challenge }, function(err, challenge) {
       helpers.generateSpecFile(req.body.input, challenge, function() {
-
-        // TODO: Can possibly be a function - testInput function
-        var testDir = path.resolve(process.cwd() + '/temp');
-
-        // Run test file
-        child_process.exec('jasmine inputSpec.js', { cwd: testDir }, function(err, stdout, strerr) {
-
-          // Update rep to include test results
-          CodeRep.findOneAndUpdate( { _id: rep._id }, { result: stdout, success: helpers.checkSuccess(stdout) }, { new: true }, function(err, rep) {
-            if (err) {
-              console.log(err);
-            } else {
-
-                // User.findOne({ userId: req.session.passport.user.userId }, function(err, user) {
-                  // userHelpers.updateRepCount(user, function() {
-                    req.flash('rep_ID', rep._id)
-                    res.redirect('/reps/result');
-                  // });
-                // });
-            }
-
-            // TODO: Delete test file after evaluating
-          });
-        }); // end of child_process
-      }); // end of generateSpecFile callback
-    }); // end of Challenge.findOne
-  }).catch(console.log.bind(console)); // close then
+        helpers.testInput(rep, function(rep) {      
+          req.flash('rep_ID', rep._id)
+          res.redirect('/reps/result');
+        })
+      });
+    });
+  }).catch(console.log.bind(console));
 });
 
 router.get('/result', function(req, res) {
