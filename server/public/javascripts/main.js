@@ -12,6 +12,7 @@ $(function() {
       $('input[type="checkbox"]:checked').parent().children('label[for=' + $(this).attr('id') + ']').addClass("selected-language");
   });
 
+  // User Panel Toggles
   $('#side-panel').click(function() {
     $('#main-panel').toggle();
     $('.toggle-panel').toggleClass('glyphicon-triangle-left');
@@ -22,5 +23,4 @@ $(function() {
   $('.toggle-settings').click(function() {
     $('#user-settings').slideToggle(1000);
   })
-
 });

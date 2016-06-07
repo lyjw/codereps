@@ -61,7 +61,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -91,17 +91,116 @@
 	  }
 
 	  _createClass(Panel, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        "div",
+	        { id: "user-panel" },
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Hello ',
-	          this.props.name,
-	          ' - from inside Panel'
+	          "div",
+	          { id: "main-panel" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "name-header" },
+	            _react2.default.createElement(
+	              "h4",
+	              null,
+	              this.props.user.name
+	            ),
+	            _react2.default.createElement("span", { className: "glyphicon glyphicon-cog toggle-settings", ariaHidden: "true" })
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { id: "user-settings" },
+	            _react2.default.createElement(
+	              "span",
+	              { className: "panel-heading" },
+	              "Settings"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "row" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-md-4 col-md-offset-1" },
+	                _react2.default.createElement(
+	                  "span",
+	                  { className: "settings-heading" },
+	                  "Experience"
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-md-7" },
+	                _react2.default.createElement(
+	                  "p",
+	                  null,
+	                  this.props.user.experience
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-md-4 col-md-offset-1" },
+	                _react2.default.createElement(
+	                  "span",
+	                  { className: "settings-heading" },
+	                  "Languages"
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-md-7" },
+	                _react2.default.createElement(
+	                  "p",
+	                  null,
+	                  this.props.user.languages
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement("hr", null),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "stats-container text-center" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "stats-heading" },
+	              "Streak Count"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "stats-value" },
+	              this.props.user.streakCount
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "stats-container text-center" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "stats-heading" },
+	              "Reps Completed"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "stats-value" },
+	              this.props.user.repsCompleted
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { id: "user-footer" },
+	            _react2.default.createElement(
+	              "a",
+	              { href: "/users/logout" },
+	              "Log Out"
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { id: "side-panel" },
+	          _react2.default.createElement("span", { className: "glyphicon glyphicon-triangle-right toggle-panel", ariaHidden: "true" })
 	        )
 	      );
 	    }

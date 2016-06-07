@@ -17,21 +17,15 @@ var ReactDOMServer = require('react-dom/server');
 var Panel = require('../server/generated/panel').default;
 
 router.get('/new', auth.isLoggedIn, function(req, res) {
-  var reactHtml = ReactDOMServer.renderToString(React.createElement(Panel, { name: "Jane" }));
-  console.log(reactHtml);
+  userHelpers.findCurrentUser(req.session.passport, function(user) {
+    var reactHtml = ReactDOMServer.renderToString(React.createElement(Panel, { user: user }));
+    console.log(reactHtml);
 
-  var promise = User.findOne({ userId: req.session.passport.user.userId }).exec();
-
-  promise.then(function(user) {
     console.log(">>>>>>> CURRENT USER");
     console.log(user);
 
     // Returns a random CodeChallenge from ChallengeRecords
      challengeService.findRecord(user, function(record) {
-
-       console.log(">>>>>>>>>>>>> FIND RECORD");
-       console.log(record);
-
        ChallengeRecord
          .findOne({ _id: record._id })
          .populate('_challenge')
@@ -44,7 +38,6 @@ router.get('/new', auth.isLoggedIn, function(req, res) {
            }
          });
      });
-
   });
 });
 
@@ -106,17 +99,22 @@ router.post("/", function(req, res, next) {
 });
 
 router.get('/result', function(req, res) {
-  CodeRep
-    .findOne({ _id: req.flash('rep_ID') })
-    .populate('_challenge')
-    .exec(function(err, rep) {
-      if (err) {
-        res.end("Error");
-      } else {
-        res.render("reps/result", { rep : rep} );
+  userHelpers.findCurrentUser(req.session.passport, function(user) {
+    var reactHtml = ReactDOMServer.renderToString(React.createElement(Panel, { user: user }));
+    console.log(reactHtml);
+
+    CodeRep
+      .findOne({ _id: req.flash('rep_ID') })
+      .populate('_challenge')
+      .exec(function(err, rep) {
+        if (err) {
+          res.end("Error");
+        } else {
+          res.render("reps/result", { rep : rep, user: user, reactOutput: reactHtml } );
+        }
       }
-    }
-  );
+    );
+  });
 });
 
 router.post('/result', function(req, res) {

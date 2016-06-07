@@ -23,36 +23,4 @@ html
         .logo-header codereps
         block content
       .col-md-3.hidden-xs.hidden-sm#user-panel
-        div#main-panel
-          h4= user.name
-            span.glyphicon.glyphicon-cog.toggle-settings(aria-hidden="true")
-          div#user-settings
-            .panel-heading Settings
-            .row
-              .col-md-4.col-md-offset-1
-                .settings-heading Experience
-              .col-md-7
-                p= user.experience
-            .row
-              .col-md-4.col-md-offset-1
-                .settings-heading Languages
-              .col-md-7
-                p= user.languages
-          hr
-          div.stats-container.text-center
-            .stats-heading Streak Count
-            .stats-value= user.streakCount
-          div.stats-container.text-center
-            .stats-heading Reps Completed
-            .stats-value= user.repsCompleted
-          div#user-footer
-            a(href="/users/logout")  Log Out
-        div#side-panel
-          span.glyphicon.glyphicon-triangle-right.toggle-panel(aria-hidden="true")
-        //- div#user-panel
-        //-   script(src='../components/panel.js', type='text/babel')
-
-    //-     div#user-panel
-    //-       script(src="../components/panel.js", type="text/babel")
-    //-
-    //- script(src="../../bundle.js" async)
+        div!= reactOutput

@@ -42,6 +42,10 @@
 }
 
 /*** GENERAL ***/
+html, body {
+  height: 100% !important;
+}
+
 body {
   font-family: 'gt_walsheim_pro_triallight' !important;
   background-color: rgba(166, 188, 189, 0.55) !important;
@@ -162,6 +166,10 @@ img.language-logo {
   margin-top: 10px;
 }
 
+#user-panel {
+  height: 100%;
+}
+
 #rep-view {
   padding: 30px;
 }
@@ -180,6 +188,7 @@ img.language-logo {
 #main-panel h4 {
   color: #CEDADA;
   margin-left: 15px;
+  display: inline;
 }
 
 #user-footer {
@@ -248,4 +257,13 @@ img.language-logo {
   border: 1px solid white;
   width: 40%;
   margin: 10px;
+}
+
+.name-header {
+  margin-top: 10px;
+}
+
+hr {
+  margin-top: 10px !important;
+  margin-bottom: 15px !important;
 }
