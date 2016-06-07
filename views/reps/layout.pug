@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
+    link(rel='stylesheet', href='/stylesheets/codemirror.css')
+    link(rel='stylesheet', href='/stylesheets/base16-dark.css')
+    link(rel="stylesheet" href="/stylesheets/prism-twilight.css")
+    link(rel="stylesheet" href="/stylesheets/jsbin-source-css.css")
+    link(href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js")
+    script(type="text/javascript", src="/javascripts/react.min.js")
+    script(type="text/javascript", src="/javascripts/react-dom.min.js")
+    script(type="text/javascript", src="/javascripts/jquery-2.2.4.min.js")
+    script(type="text/javascript", src="/javascripts/prism.js")
+    script(type='text/javascript', src='/javascripts/codemirror-compressed.js')
+    script(type="text/javascript", src="/javascripts/main.js")
+
+  body
+    .row
+      .col-md-9#rep-view
+        .logo-header codereps
+        block content
+      .col-md-3.hidden-xs.hidden-sm#user-panel
+        div#main-panel
+          h4= user.name
+            span.glyphicon.glyphicon-cog.toggle-settings(aria-hidden="true")
+          div#user-settings
+            .panel-heading Settings
+            .row
+              .col-md-4.col-md-offset-1
+                .settings-heading Experience
+              .col-md-7
+                p= user.experience
+            .row
+              .col-md-4.col-md-offset-1
+                .settings-heading Languages
+              .col-md-7
+                p= user.languages
+          hr
+          div.stats-container.text-center
+            .stats-heading Streak Count
+            .stats-value= user.streakCount
+          div.stats-container.text-center
+            .stats-heading Reps Completed
+            .stats-value= user.repsCompleted
+          div#user-footer
+            a(href="/users/logout")  Log Out
+        div#side-panel
+          span.glyphicon.glyphicon-triangle-right.toggle-panel(aria-hidden="true")
+        //- div#user-panel
+        //-   script(src='../components/panel.js', type='text/babel')
+
+    //-     div#user-panel
+    //-       script(src="../components/panel.js", type="text/babel")
+    //-
+    //- script(src="../../bundle.js" async)

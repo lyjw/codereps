@@ -12,4 +12,15 @@ $(function() {
       $('input[type="checkbox"]:checked').parent().children('label[for=' + $(this).attr('id') + ']').addClass("selected-language");
   });
 
+  $('#side-panel').click(function() {
+    $('#main-panel').toggle();
+    $('.toggle-panel').toggleClass('glyphicon-triangle-left');
+    $('#rep-view').toggleClass("col-md-9 col-md-10");
+    $('#user-panel').toggleClass("col-md-3 col-md-2");
+  });
+
+  $('.toggle-settings').click(function() {
+    $('#user-settings').slideToggle(1000);
+  })
+
 });

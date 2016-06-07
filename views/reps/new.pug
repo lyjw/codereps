@@ -1,8 +1,8 @@
-extends ../layout
+extends ./layout
 
 block content
   h3.text-center= challenge.description
-  .col-md-6.col-md-offset-3
+  .col-md-8.col-md-offset-2
     form.form-horizontal(action='/reps' method='post')
       .form-group
         input(type='hidden', name='challengeId', value=challenge.challengeId)

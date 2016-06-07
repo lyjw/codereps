@@ -1,38 +1,37 @@
 var fs = require('fs');
 var express = require('express');
-var routes = require('./routes');
+var routes = require('../routes');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jquery = require('jquery');
-var secrets = require('./.secrets.yml');
+var secrets = require('../.secrets.yml');
 
 var passport = require('passport');
-var passportConfig = require('./config/passport');
+var passportConfig = require('../config/passport');
 var session = require('express-session');
-var githubAuth = require('./config/authentication');
-var config = require('./config/.oauth.js');
+var githubAuth = require('../config/authentication');
+var config = require('../config/.oauth.js');
 var LocalStrategy = require('passport-local').Strategy;
 var GithubStrategy = require('passport-github2').Strategy;
 var bCrypt = require('bcrypt-nodejs');
-var Promise = require("bluebird");
-var async = require('async')
-
-
+var async = require('async');
 var flash = require('connect-flash');
+
+var React = require('react');
+var ReactDOM = require('react-dom/server');
 
 // models
 var mongoose = require('mongoose');
-var User = require('./models/user');
 
 // routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var reps = require('./routes/reps');
-var challenges = require('./routes/challenges');
-var authentications = require('./routes/authentications');
+var routes = require('../routes/index');
+var users = require('../routes/users');
+var reps = require('../routes/reps');
+var challenges = require('../routes/challenges');
+var authentications = require('../routes/authentications');
 
 // mongoose
 var connection = mongoose.connect("mongodb://localhost/journal_prompter_4");
@@ -42,8 +41,10 @@ autoIncrement.initialize(connection);
 
 var app = express();
 
+require("node-jsx").install();
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('../views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
@@ -53,6 +54,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use(session({ secret: secrets.appkeys.sessionSecret }));
 
 app.use(passport.initialize());
@@ -64,6 +66,7 @@ app.use('/users', users);
 app.use('/reps', reps);
 app.use('/challenges', challenges);
 app.use('/auth', authentications);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

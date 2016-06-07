@@ -1,7 +1,7 @@
-var mongoose                = require('mongoose');
-var Schema                  = mongoose.Schema;
-var bcrypt                   = require('bcrypt-nodejs');
-var autoIncrement           = require('mongoose-auto-increment');
+var mongoose        = require('mongoose');
+var Schema          = mongoose.Schema;
+var bcrypt           = require('bcrypt-nodejs');
+var autoIncrement   = require('mongoose-auto-increment');
 
 autoIncrement.initialize(mongoose);
 
@@ -14,6 +14,8 @@ var UserSchema = new Schema ({
   experience:  String,
   languages:  [],
   challengeRecords: [],
+  streakCount: { type: Number, default: 0 },
+  repsCompleted: { type: Number, default: 0 },
   role:        { type: String, default: 'user' },
   createdOn:  { type: Date, default: Date.now }
 });

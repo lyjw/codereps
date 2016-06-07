@@ -43,7 +43,6 @@
 
 /*** GENERAL ***/
 body {
-  padding: 50px;
   font-family: 'gt_walsheim_pro_triallight' !important;
   background-color: rgba(166, 188, 189, 0.55) !important;
 }
@@ -161,4 +160,92 @@ img.language-logo {
   filter: grayscale(100%);
   opacity: 0.5;
   margin-top: 10px;
+}
+
+#rep-view {
+  padding: 30px;
+}
+
+#main-panel {
+  position: relative;
+  background-color: #312D2D;
+  color: white;
+  padding: 10px;
+  height: 100vh;
+  width: 92%;
+  float: left;
+  display: inline;
+}
+
+#main-panel h4 {
+  color: #CEDADA;
+  margin-left: 15px;
+}
+
+#user-footer {
+  position: absolute;
+  bottom: 0;
+  margin: 20px;
+}
+
+#user-footer a {
+  color: white;
+}
+
+#side-panel {
+  background-color: #312D2D;
+  color: #736D6D;
+  padding: 20px 5px;
+  height: 100vh;
+  width: 8%;
+  display: inline;
+  float: right;
+  border-left: 1px solid rgba(240, 248, 255, 0.06);
+}
+
+.toggle-settings {
+  float: right;
+}
+
+#user-settings {
+  display: none;
+  background-color: beige;
+  border-radius: 12px;
+  color: black;
+  padding: 5px;
+}
+
+.logo-header {
+  font-family: 'gt_walsheim_pro_trialbold';
+  font-size: 20px;
+  color: white;
+  margin: -10px 0 50px 10px;
+}
+
+.panel-heading {
+  font-family: 'gt_walsheim_pro_trialMdOb';
+  font-size: 20px;
+}
+
+.settings-heading {
+  font-family: 'gt_walsheim_pro_trialmedium';
+  font-size: 15px;
+}
+
+.stats-heading {
+  font-family: 'gt_walsheim_pro_trialmedium';
+  font-size: 15px;
+  padding: 10px 5px 10px 5px;
+  border-bottom: 1px solid white;
+}
+
+.stats-value {
+  padding: 10px;
+}
+
+.stats-container {
+  display: inline-block;
+  border: 1px solid white;
+  width: 40%;
+  margin: 10px;
 }

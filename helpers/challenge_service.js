@@ -2,10 +2,6 @@ var mongoose = require('mongoose');
 var User = require("../models/user");
 var CodeChallenge = require("../models/codeChallenge");
 var ChallengeRecord = require("../models/challengeRecord");
-var Promise = require("bluebird");
-Promise.promisifyAll(mongoose);
-var async = require('async')
-
 
 exports.createChallengeRecords = function(user, callback) {
 
@@ -27,16 +23,6 @@ exports.createChallengeRecords = function(user, callback) {
 
       console.log(">>>>>>>>>> RECORD CREATED");
       console.log(record);
-
-      // User.findByIdAndUpdate(
-      //   record._user,
-      //   { $push: { "challengeRecords": record } },
-      //   { new: true },
-      //   function(err, user) {
-      //     console.log(">>>>>> USER INSIDE FIND AND UPDATE")
-      //     console.log(user);
-      //     if (err) { next(err); }
-      // });
 
       stream.resume();
     });

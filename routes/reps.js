@@ -5,13 +5,21 @@ var User      = require('../models/user');
 var ChallengeRecord      = require('../models/challengeRecord');
 var CodeRep        = require('../models/codeRep');
 var helpers         = require('../helpers/rep_helpers');
+var userHelpers         = require('../helpers/user_helpers');
 var challengeService = require('../helpers/challenge_service');
 var auth            = require('../config/isLoggedIn');
 var path            = require('path');
 var child_process  = require('child_process');
 var flash = require('connect-flash');
 
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
+var Panel = require('../server/generated/panel').default;
+
 router.get('/new', auth.isLoggedIn, function(req, res) {
+  var reactHtml = ReactDOMServer.renderToString(React.createElement(Panel, { name: "Jane" }));
+  console.log(reactHtml);
+
   var promise = User.findOne({ userId: req.session.passport.user.userId }).exec();
 
   promise.then(function(user) {
@@ -32,7 +40,7 @@ router.get('/new', auth.isLoggedIn, function(req, res) {
            if (err) {
              res.end("Error");
            } else {
-             res.render( 'reps/new', { errors: [], challenge: record._challenge });
+             res.render( 'reps/new', { errors: [], challenge: record._challenge, user: user, reactOutput: reactHtml });
            }
          });
      });
@@ -80,8 +88,13 @@ router.post("/", function(req, res, next) {
             if (err) {
               console.log(err);
             } else {
-              req.flash('rep_ID', rep._id)
-              res.redirect('/reps/result');
+
+                // User.findOne({ userId: req.session.passport.user.userId }, function(err, user) {
+                  // userHelpers.updateRepCount(user, function() {
+                    req.flash('rep_ID', rep._id)
+                    res.redirect('/reps/result');
+                  // });
+                // });
             }
 
             // TODO: Delete test file after evaluating
