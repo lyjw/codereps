@@ -1,10 +1,10 @@
 extends ../layout
 
 block content
-  h1.text-center Create a CodeReps Account
+  h1.users-header.text-center Create a CodeReps Account
 
   .row
-    .col-sm-8.col-sm-offset-2
+    .col-sm-6.col-sm-offset-3
       form(action='/users/signup', method='post')
         .form-group
           label.form-control-label(for='username') Username
@@ -22,18 +22,18 @@ block content
         button(class='btn btn-lg btn-primary btn-block', type='submit') Create
 
   .row
-    .col-sm-8.col-sm-offset-2
+    .col-sm-6.col-sm-offset-3
       h4.text-center Already have an account?
         a(href='/users/login')  Log In
 
   .row
-    .col-sm-8.col-sm-offset-2
+    .col-sm-6.col-sm-offset-3
       hr
       h3.text-center or
       a(href="/auth/github")
-        button.btn.btn-default.github-auth Sign Up with Github
-
-
+        button.btn.btn-default.github-auth
+          i.fa.fa-github(aria-hidden="true")
+          |     Sign Up with Github
 
     if message
       h1.text-center.error-message #{message}

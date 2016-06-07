@@ -23,4 +23,9 @@ $(function() {
   $('.toggle-settings').click(function() {
     $('#user-settings').slideToggle(1000);
   })
+
+  $('.toggle-test').click(function() {
+    $('#results').toggle();
+    $('#test-results').toggle();
+  })
 });

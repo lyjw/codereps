@@ -19,6 +19,7 @@
     "express": "~4.13.1",
     "express-react-views": "^0.10.2",
     "express-session": "^1.13.0",
+    "font-awesome": "^4.6.3",
     "highlight.js": "^9.4.0",
     "jasmine": "^2.4.1",
     "jquery": "^2.2.4",

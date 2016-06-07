@@ -10,7 +10,6 @@ class Panel extends Component {
             <span className="glyphicon glyphicon-cog toggle-settings" ariaHidden="true"></span>
           </div>
           <div id="user-settings">
-            <span className="panel-heading">Settings</span>
             <div className="row">
               <div className="col-md-4 col-md-offset-1">
                 <span className="settings-heading">Experience</span>
@@ -23,6 +22,15 @@ class Panel extends Component {
               </div>
               <div className="col-md-7">
                 <p>{ this.props.user.languages }</p>
+              </div>
+              <div className="col-md-10 col-md-offset-1 text-center">
+                <hr />
+                <div>
+                  You are currently working on <br /><strong>{ this.props.user.challengeRecords.length }</strong> reps.
+                </div>
+                <a href="/users/settings">
+                  <button className="btn btn-default">Edit Settings</button>
+                </a>
               </div>
             </div>
           </div>

@@ -37,8 +37,10 @@ jspm_packages
 .node_repl_history
 
 # Test files
-./temp/*
+temp/*
+server/public/fonts
+server/public/images
 
 # secrets
 .secrets.yml
-./config/.oauth.js
+config/.oauth.js

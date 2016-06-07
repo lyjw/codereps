@@ -19,17 +19,12 @@ var ChallengeRecordSchema = new Schema({
 });
 
 ChallengeRecordSchema.post('save', function(record, next) {
-  console.log(">>>> INSIDE POST SAVE");
-  console.log(record);
-
   User.findByIdAndUpdate(
     record._user,
     { $push: { "challengeRecords": record } },
     { new: true },
     function(err, user) {
       if (err) { next(err); }
-      console.log(">>>> USER INSIDE POST SAVE");
-      console.log(user);
       next();
     }
   );

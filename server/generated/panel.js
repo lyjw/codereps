@@ -97,11 +97,6 @@ module.exports =
 	            "div",
 	            { id: "user-settings" },
 	            _react2.default.createElement(
-	              "span",
-	              { className: "panel-heading" },
-	              "Settings"
-	            ),
-	            _react2.default.createElement(
 	              "div",
 	              { className: "row" },
 	              _react2.default.createElement(
@@ -138,6 +133,32 @@ module.exports =
 	                  "p",
 	                  null,
 	                  this.props.user.languages
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-md-10 col-md-offset-1 text-center" },
+	                _react2.default.createElement("hr", null),
+	                _react2.default.createElement(
+	                  "div",
+	                  null,
+	                  "You are currently working on ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "strong",
+	                    null,
+	                    this.props.user.challengeRecords.length
+	                  ),
+	                  " reps."
+	                ),
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "/users/settings" },
+	                  _react2.default.createElement(
+	                    "button",
+	                    { className: "btn btn-default" },
+	                    "Edit Settings"
+	                  )
 	                )
 	              )
 	            )

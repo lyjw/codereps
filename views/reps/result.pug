@@ -1,42 +1,40 @@
 extends ./layout
 
 block content
-  .row
-    .col-md-8.col-md-offset-2
-      h3= rep._challenge.description
-
-      pre
-        code.language-js= rep.input
-
-      if rep.success
-        div.icon.icon--order-success.svg
-          svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
-            g(fill="none" stroke="#8EC343" stroke-width="2")
-              circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
-              path(d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
-
-      else
-        br
-        h4 Results
+  #results
+    .row
+      .col-md-8.col-md-offset-2
+        h3= rep._challenge.description
 
         pre
-          code= rep.result
+          code.language-js= rep.input
 
-        .error-message.row
-          br
-          .col-xs-2.icon.icon--order-success.svg
+        if rep.success
+          div.icon.icon--order-success.svg
             svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
-              g(fill="none" stroke="#B0171F" stroke-width="2")
+              g(fill="none" stroke="#8EC343" stroke-width="2")
                 circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
-                path(d="M18,20l35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
-                path(d="M53,20l-35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
-          .col-xs-10
-            span.no-success-text Oops! It looks like the tests failed to pass.
+                path(d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
+
+        else
+          h5.see-results.toggle-test
+            | See Test Results
+            i.fa.fa-arrow-right(aria-hidden="true")
+
+          .error-message.row
+            br
+            .col-xs-2.icon.icon--order-success.svg
+              svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
+                g(fill="none" stroke="#B0171F" stroke-width="2")
+                  circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
+                  path(d="M18,20l35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
+                  path(d="M53,20l-35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
+            .col-xs-10
+              span.no-success-text Oops! It looks like the tests failed to pass.
 
         hr
 
         h3.text-center Rate this Challenge
-
         form.form-horizontal.rating(action='/reps/result' method='post')
           .form-group
             input(type='hidden', name='repID', value=rep.repId)
@@ -58,3 +56,13 @@ block content
               span.difficulty-label Very Challenging
           .form-group
             input(type='submit' value='Submit' class='btn btn-default')
+
+  #test-results
+    .row
+      .col-md-10.col-md-offset-1
+        h5.toggle-test
+          i.fa.fa-arrow-left(aria-hidden="true")
+          |    Back
+
+        pre
+          code= rep.result
