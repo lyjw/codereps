@@ -36,8 +36,8 @@ class Panel extends Component {
           </div>
           <hr />
           <div className='stats-container text-center'>
-            <div className='stats-heading'>Streak Count</div>
-            <div className='stats-value'>{ this.props.user.streakCount }</div>
+            <div className='stats-heading'>Current Streak</div>
+            <div className='stats-value'>{ this.props.user.streakCount.length }</div>
           </div>
           <div className='stats-container text-center'>
             <div className='stats-heading'>Reps Completed</div>

@@ -186,12 +186,12 @@
 	            _react2.default.createElement(
 	              "div",
 	              { className: "stats-heading" },
-	              "Streak Count"
+	              "Current Streak"
 	            ),
 	            _react2.default.createElement(
 	              "div",
 	              { className: "stats-value" },
-	              this.props.user.streakCount
+	              this.props.user.streakCount.length
 	            )
 	          ),
 	          _react2.default.createElement(

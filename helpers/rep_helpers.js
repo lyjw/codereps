@@ -1,15 +1,11 @@
 var path            = require('path');
+var fs              = require('fs');
 var child_process  = require('child_process');
 var CodeRep        = require('../models/codeRep');
 
-
 exports.generateSpecFile = function(userInput, challenge, callback) {
-  var fs = require('fs');
-  var path = require('path');
-
   var testFile = userInput + '\n' + challenge.test;
 
-  // Create the spec file
   fs.writeFile('./temp/inputSpec.js', testFile, function(err) {
     if (err) {
       console.log(err);
