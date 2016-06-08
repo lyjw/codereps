@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .col-md-6.col-md-offset-3
+    h3.users-header.text-center Create a Challenge Pack
+    br
+    form.form-horizontal(action='/packs' method='post')
+      .form-group
+        label(for='name') Name
+        input.form-control(type='text' name='name')
+      .form-group
+        label(for='language') Language
+        select.form-control(name='language')
+          option(value='Javascript') Javascript
+          option(value='Ruby') Ruby
+      .form-group
+        label(for='level') Level
+        select.form-control(name='level')
+          option(value='Beginner') Beginner
+          option(value='Intermediate') Intermediate
+          option(value='Advanced') Advanced
+      .form-group.text-center
+        input(type='submit' value='Create Challenge Pack' class='btn btn-default')

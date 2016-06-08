@@ -31,6 +31,7 @@ var routes = require('../routes/index');
 var users = require('../routes/users');
 var reps = require('../routes/reps');
 var challenges = require('../routes/challenges');
+var packs = require('../routes/packs');
 var authentications = require('../routes/authentications');
 
 // mongoose
@@ -65,6 +66,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/reps', reps);
 app.use('/challenges', challenges);
+app.use('/packs', packs);
 app.use('/auth', authentications);
 
 

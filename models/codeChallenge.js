@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
+var ChallengePack = require('../models/challengePack');
 var autoIncrement = require('mongoose-auto-increment');
 
 autoIncrement.initialize(mongoose);
@@ -9,7 +10,20 @@ var CodeChallengeSchema = new Schema({
   level:        { type: String },
   description: { type: String, trim: true, required: true},
   prefill:      { type: String, trim: true },
-  test:         { type: String, required: true }
+  test:         { type: String, required: true },
+  _pack:        { type: mongoose.Schema.Types.ObjectId, ref: 'ChallengePack'}
+});
+
+CodeChallengeSchema.post('save', function(challenge, next) {
+  ChallengePack.findByIdAndUpdate(
+    challenge._pack,
+    { $push: { "challenges": challenge } },
+    { new: true },
+    function(err, user) {
+      if (err) { next(err); }
+      next();
+    }
+  );
 });
 
 CodeChallengeSchema.plugin(autoIncrement.plugin, { model: 'CodeChallenge', field: 'challengeId' });

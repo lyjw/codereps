@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .row
+    .col-md-6.col-md-offset-3
+      each challenge in challenges
+        div.well
+          p= challenge.language
+            span  &nbsp;|&nbsp;
+            span= challenge.level
+          h4 Description
+          p= challenge.description
+          h4 Prefill
+          pre(style="background-color: white")= challenge.prefill
+          h4 Test
+          pre(style="background-color: white")=  challenge.test
