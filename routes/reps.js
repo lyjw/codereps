@@ -8,7 +8,7 @@ var StreakCounter        = require('../models/streakCounter');
 var helpers         = require('../helpers/rep_helpers');
 var userHelpers         = require('../helpers/user_helpers');
 var challengeService = require('../helpers/challenge_service');
-var auth            = require('../config/isLoggedIn');
+var auth            = require('../config/abilities');
 var flash = require('connect-flash');
 var moment = require('moment');
 var React = require('react');
@@ -16,10 +16,8 @@ var ReactDOMServer = require('react-dom/server');
 var Panel = require('../server/generated/panel').default;
 
 router.get('/new', auth.isLoggedIn, function(req, res) {
-  // userHelpers.findCurrentUser(req.session.passport, function(user) {
-  User.findById(req.session.passport.user._id, function(err, user) {
+  userHelpers.findCurrentUser(req.session.passport, function(user) {
     var reactHtml = ReactDOMServer.renderToString(React.createElement(Panel, { user: user }));
-    console.log(reactHtml);
 
     console.log(">>>>>>> CURRENT USER");
     console.log(user);

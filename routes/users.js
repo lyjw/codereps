@@ -4,7 +4,6 @@ var User = require('../models/user');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
 var challengeService = require('../helpers/challenge_service');
-var async = require('async')
 
 router.get('/login', function(req, res, next) {
   res.render('users/login', { errors: [] });
@@ -38,7 +37,6 @@ router.post('/settings', function(req, res, next) {
       console.log(err);
     } else {
       challengeService.createChallengeRecords(user, function() {
-        console.log(">>>>>>>>>> NOW PROCEDING TO RENDER NEW");;
         res.redirect('/reps/new');
       });
     }

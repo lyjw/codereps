@@ -21,16 +21,27 @@ var checkSuccess = function(stdout) {
   return testRegex.test(stdout);
 }
 
+var formatTestOutput = function(stdout) {
+  var startOfErr = stdout.indexOf("Failures");
+  var startOfStackErr = stdout.indexOf("Stack");
+  var endOfStackErr = stdout.indexOf("spec");
+  var startOfMessage = stdout.indexOf("Message");
+
+  return stdout.slice(startOfErr, startOfMessage) + "\n" + stdout.slice(startOfMessage, startOfStackErr) + "\n" + stdout.slice(endOfStackErr - 2, -1);
+}
+
 exports.testInput = function(rep, callback) {
   var testDir = path.resolve(process.cwd() + '/temp');
 
   // Run test file
   child_process.exec('jasmine inputSpec.js', { cwd: testDir }, function(err, stdout, strerr) {
 
+    var formattedTestResult = formatTestOutput(stdout);
+
     // Update rep to include test results
     CodeRep.findOneAndUpdate(
       { _id: rep._id },
-      { result: stdout, success: checkSuccess(stdout) },
+      { result: formattedTestResult, success: checkSuccess(stdout) },
       { new: true },
       function(err, rep) {
         if (err) {
