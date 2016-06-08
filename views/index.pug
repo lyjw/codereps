@@ -1,6 +1,38 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/codemirror.css')
+    link(rel='stylesheet', href='/stylesheets/base16-dark.css')
+    link(rel="stylesheet" href="/stylesheets/prism-twilight.css")
+    link(rel="stylesheet" href="/stylesheets/jsbin-source-css.css")
+    link(href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js")
+    script(type="text/javascript", src="/javascripts/react.min.js")
+    script(type="text/javascript", src="/javascripts/react-dom.min.js")
+    script(type="text/javascript", src="/javascripts/jquery-2.2.4.min.js")
+    script(type="text/javascript", src="/javascripts/prism.js")
+    script(type='text/javascript', src='/javascripts/codemirror-compressed.js')
+    script(type="text/javascript", src="/javascripts/main.js")
 
-block content
-  h1#main-heading.text-center codereps
+body
+  .row.index-page
+    .col-md-8.col-md-offset-2
+      h1#main-heading.text-center
+        i.fa.fa-th-large(aria-hidden="true")
+        br
+        | codereps
 
-  div= markup
+      hr
+
+      p.intro-text.text-center flashcards for coders
+
+      .text-center
+        a(href="/users/signup")
+          button.btn.btn-default Sign Up
+        | &nbsp;&nbsp;or&nbsp;&nbsp;
+        a(href="/users/login")
+          button.btn.btn-default Log In

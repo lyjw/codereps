@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var ChallengePack = require('../models/challengePack');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
 var challengeService = require('../helpers/challenge_service');
+var helpers = require('../helpers/user_helpers');
 
 router.get('/login', function(req, res, next) {
   res.render('users/login', { errors: [] });
@@ -36,10 +38,35 @@ router.post('/settings', function(req, res, next) {
     if (err) {
       console.log(err);
     } else {
-      challengeService.createChallengeRecords(user, function() {
-        res.redirect('/reps/new');
-      });
+      res.redirect('/users/set-packs')
+      // challengeService.createChallengeRecords(user, function() {
+      //   res.redirect('/reps/new');
+      // });
     }
+  });
+});
+
+router.get('/set-packs', function(req, res, next) {
+  helpers.findCurrentUser(req.session.passport, function(user) {
+    ChallengePack.find({}, function(err, packs) {
+      res.render('users/set-packs', { errors: [], user: user, packs: packs});
+    })
+  });
+});
+
+router.post('/default-challenges', function(req, res, next) {
+  helpers.findCurrentUser(req.session.passport, function(user) {
+    challengeService.createChallengeRecords(user, function() {
+      res.redirect('/reps/new');
+    });
+  });
+});
+
+router.post('/pack-settings', function(req, res, next) {
+  helpers.findCurrentUser(req.session.passport, function(user) {
+    challengeService.createChallengeRecordsByPack(user, req.body.packs, function() {
+      res.redirect('/reps/new');
+    });
   });
 });
 

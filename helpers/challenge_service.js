@@ -4,10 +4,46 @@ var CodeChallenge = require("../models/codeChallenge");
 var ChallengeRecord = require("../models/challengeRecord");
 
 exports.createChallengeRecords = function(user, callback) {
-
   var stream = CodeChallenge
                   .where('language').in(user.languages)
                   .where('level', user.experience)
+                  .stream();
+
+  stream.on("data", function(challenge) {
+    stream.pause();
+
+    console.log(">>> INSIDE STREAM - CHALLENGE");
+    console.log(challenge);
+
+    var record =  {
+      _user: user._id,
+      _challenge: challenge._id
+    }
+
+    ChallengeRecord.create(record, function(err, record) {
+      if (err) { console.log(err); }
+
+      console.log(">>>>>>>>>> RECORD CREATED");
+      console.log(record);
+
+      stream.resume();
+    });
+
+  });
+
+  stream.on("error", function(err) {
+    console.log(err);
+  });
+
+  stream.on("end", function() {
+    console.log("ALL RECORDS CREATED");
+    callback();
+  })
+}
+
+exports.createChallengeRecordsByPack = function(user, packs, callback) {
+  var stream = CodeChallenge
+                  .where('_pack').in(packs)
                   .stream();
 
   stream.on("data", function(challenge) {

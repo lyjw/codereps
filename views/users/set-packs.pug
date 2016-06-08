@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  .row
+    .col-md-4.col-md-offset-1#get-started
+      h1.start-header.text-center Get Started
+      h4.text-center Start with reps that fit
+        br
+        | your level and language settings
+      br
+      .row
+        .col-md-8.col-md-offset-2
+          form(action='/users/default-challenges', method='post')
+            .form-group.text-center
+              button(class='btn btn-lg btn-default', type='submit') I'm ready for a Rep
+      p.text-center or
+        br
+        h4.text-center.choose-pack-text Choose your Challenge Packs
+
+    .col-md-6#choose-pack
+      h3.users-header.text-center Choose your Challenge Packs
+      h4.text-center Choose what reps you start out with by topic
+
+      form(action='/users/pack-settings', method='post')
+        .form-group
+          for pack in packs
+            .row
+              .col-md-10.col-md-offset-1
+                label.challenge-pack(for=pack.packId)
+                  div.well.row
+                    .col-md-3
+                      if (pack.language === "JavaScript") || (pack.language === "Javascript")
+                        img.language-logo(src="../images/javascript.png")
+                      else
+                        img.language-logo(src="../images/ruby.png")
+                    .col-md-9
+                      h3= pack.name
+                      .row
+                        .col-md-5.col-sm-2
+                          b.pack-label Language
+                        .col-md-4.col-sm-4
+                          span= pack.language
+                      .row
+                        .col-md-5.col-sm-2
+                          b.pack-label Level
+                        .col-md-4.col-sm-4
+                          span= pack.level
+                      .row
+                        .col-md-5.col-sm-2
+                          b.pack-label No. of Challenges
+                        .col-md-4.col-sm-4
+                          span= pack.challenges.length
+                input(id=pack.packId, type="checkbox", name="packs", value=pack.packId)
+        .form-group.text-center
+          button(class='btn btn-lg btn-default', type='submit') Select

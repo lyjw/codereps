@@ -42,12 +42,6 @@
 }
 
 /*** GENERAL ***/
-html, body {
-  height: auto !important;
-  height: 100%;
-  min-height: 100%;
-}
-
 body {
   font-family: 'gt_walsheim_pro_triallight' !important;
   background-color: rgba(166, 188, 189, 0.55) !important;
@@ -58,10 +52,25 @@ a {
 }
 
 /*** HOME PAGE ***/
+.index-page {
+  margin: 50px;
+}
+
 #main-heading {
   font-family: 'gt_walsheim_pro_trialmedium';
-  font-size: 100px;
+  font-size: 150px;
   color: white;
+}
+
+#main-heading i {
+  font-size: 100px;
+  color: #5A7373;
+}
+
+.intro-text {
+  font-family: 'gt_walsheim_pro_trialthin';
+  font-size: 40px;
+  color: #5A7373;
 }
 
 /****** Rep SHOW *********/
@@ -113,6 +122,11 @@ input[type="checkbox"] {
   color: white;
 }
 
+.start-header {
+  font-family: 'gt_walsheim_pro_trialMdOb';
+  color: #5A7373;
+}
+
 h3.settings-heading {
   font-family: 'gt_walsheim_pro_trialbold';
 }
@@ -122,8 +136,12 @@ h3.settings-heading.experience {
 }
 
 .selected-difficulty {
-  color: #466790;
+  color: #5A7373;
   font-size: 25px !important;
+}
+
+.selected-language {
+  color: black;
 }
 
 .selected-language img {
@@ -293,4 +311,42 @@ hr {
 
 .well {
   padding: 10px 20px 40px 20px !important;
+}
+
+.challenge-pack {
+  min-width: 100%;
+  margin-bottom: -10px;
+}
+
+.challenge-pack .well {
+  padding-bottom: 20px !important;
+}
+
+.challenge-pack h3 {
+  font-family: 'gt_walsheim_pro_trialmedium';
+}
+
+.pack-label {
+  font-family: 'gt_walsheim_pro_trialmedium';
+}
+
+#get-started {
+  padding: 8% 0 15% 0;
+  border-right: 1px solid white;
+  height: 100%;
+}
+
+#get-started h4,
+#choose-pack h4 {
+  font-family: 'gt_walsheim_pro_trialmedium';
+  line-height: 25px;
+}
+
+#get-started .choose-pack-text {
+  color: white;
+}
+
+#choose-pack button {
+  padding: 5px 10px;
+  font-size: 15px;
 }

@@ -6,7 +6,7 @@ var helpers = require('../helpers/challenge_helpers');
 var flash = require('connect-flash');
 var auth = require('../config/abilities');
 
-router.get('/new', auth.isAdmin, function(req, res, next) {
+router.get('/new', function(req, res, next) {
   ChallengePack.find({}, function(err, packs) {
     res.render('challenges/new', { errors: [], packs: packs });
   })
@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 router.post("/", function(req, res, next) {
   helpers.assignPack(req.body.pack, function(pack) {
     var challenge = new CodeChallenge({
-      _pack: pack._id,
+      _pack: pack.packId,
       language: req.body.language,
       level: req.body.level,
       description: req.body.description,
@@ -41,8 +41,7 @@ router.post("/", function(req, res, next) {
       if (err) {
         res.render('challenges/new', { errors: err })
       } else {
-        req.flash('pack_Id', challenge._pack);
-        res.redirect('/packs/' + req.body.pack.packId);
+        res.redirect('/packs/' + pack.packId);
       }
     });
   })
