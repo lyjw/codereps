@@ -21,7 +21,8 @@ html
   body
     .row
       .col-md-9#rep-view
-        .logo-header codereps
+        .logo-header
+          a(href="/") codereps
         block content
       .col-md-3.hidden-xs.hidden-sm#user-panel
         div!= reactOutput

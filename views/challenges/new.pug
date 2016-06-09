@@ -2,7 +2,9 @@ extends ../layout
 
 block content
   .col-md-6.col-md-offset-3
-    h3.users-header.text-center  Create a Challenge
+    h3.users-header.text-center
+      i.fa.fa-th-large(aria-hidden="true")
+      | &nbsp;&nbsp;Create a Challenge
     br
     form.form-horizontal(action='/challenges' method='post')
       .form-group
@@ -22,13 +24,13 @@ block content
           option(value='Intermediate') Intermediate
       .form-group
         label(for='description') Description
-        textarea.form-control(name='description')
+        textarea.form-control(name='description' placeholder='Write a function that returns the number of characters in the given string.')
       .form-group
         label(for='prefill') Prefill
-        textarea.form-control(name='prefill')
+        textarea.form-control(name='prefill' placeholder='var characterCount = function(string) {\r\n  // Enter your code here\r\n}' rows='4')
       .form-group
         label(for='test') Test
-        textarea#editor.form-control(name='test')
+        textarea#editor.form-control(name='test' rows='6' placeholder='// Tests written in Jasmine\n\ndescribe(\"Write a function that returns the number of characters in the given \nstring.\", function() {\r\n  it(\"returns the number of characters\", function() {\r\n    expect(characterCount(\"Hello World\")).toEqual(11);\r\n  });\r\n});')
       .form-group.text-center
         input.btn.btn-default(type='submit' value='Create Challenge')
 

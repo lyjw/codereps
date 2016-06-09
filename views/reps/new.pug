@@ -1,15 +1,22 @@
 extends ./layout
 
 block content
-  h3.text-center= challenge.description
-  .col-md-8.col-md-offset-2
-    form.form-horizontal(action='/reps' method='post')
-      .form-group
-        input(type='hidden', name='challengeId', value=challenge.challengeId)
-      .form-group
-        textarea#editor.form-control(name='input')=challenge.prefill
-      .form-group
-        input(type='submit' value='Submit Code' class='btn btn-default')
+  .row
+    .col-md-8.col-md-offset-2
+      p
+        span= challenge.language
+        span &nbsp;&nbsp;|&nbsp;&nbsp;
+        span= challenge.level
+      h3= challenge.description
+  .row
+    .col-md-8.col-md-offset-2
+      form.form-horizontal(action='/reps' method='post')
+        .form-group
+          input(type='hidden', name='challengeId', value=challenge.challengeId)
+        .form-group
+          textarea#editor.form-control(name='input')=challenge.prefill
+        .form-group
+          input(type='submit' value='Submit Code' class='btn btn-default')
 
   script(type='text/javascript').
     var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {

@@ -61,7 +61,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -91,137 +91,187 @@
 	  }
 
 	  _createClass(Panel, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { id: "user-panel" },
-	        _react2.default.createElement(
-	          "div",
-	          { id: "main-panel" },
+	      var user = this.props.user;
+
+	      var adminLinks = void 0;
+
+	      if (user.role === "admin") {
+	        adminLinks = _react2.default.createElement(
+	          'div',
+	          { id: 'admin-links' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "name-header" },
+	            'div',
+	            null,
 	            _react2.default.createElement(
-	              "h4",
+	              'h4',
 	              null,
-	              this.props.user.name
-	            ),
-	            _react2.default.createElement("span", { className: "glyphicon glyphicon-cog toggle-settings", ariaHidden: "true" })
+	              'Admin Actions'
+	            )
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { id: "user-settings" },
+	            'div',
+	            { className: 'admin-link' },
 	            _react2.default.createElement(
-	              "div",
-	              { className: "row" },
+	              'a',
+	              { href: '/packs' },
+	              _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' }),
+	              '  View Challenge Packs'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'admin-link' },
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/packs/new' },
+	              _react2.default.createElement('i', { className: 'fa fa-plus-square-o', 'aria-hidden': 'true' }),
+	              '  Add Challenge Pack'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'admin-link' },
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/challenges/new' },
+	              _react2.default.createElement('i', { className: 'fa fa-plus-square-o', 'aria-hidden': 'true' }),
+	              '  Add Challenge'
+	            )
+	          )
+	        );
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'user-panel' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'main-panel' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'name-header' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              user.name
+	            ),
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-cog toggle-settings', ariaHidden: 'true' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'user-settings' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row' },
 	              _react2.default.createElement(
-	                "div",
-	                { className: "col-md-4 col-md-offset-1" },
+	                'div',
+	                { className: 'col-md-4 col-md-offset-1' },
 	                _react2.default.createElement(
-	                  "span",
-	                  { className: "settings-heading" },
-	                  "Experience"
+	                  'span',
+	                  { className: 'settings-heading' },
+	                  'Experience'
 	                )
 	              ),
 	              _react2.default.createElement(
-	                "div",
-	                { className: "col-md-7" },
+	                'div',
+	                { className: 'col-md-7' },
 	                _react2.default.createElement(
-	                  "p",
+	                  'p',
 	                  null,
-	                  this.props.user.experience
+	                  user.experience
 	                )
 	              ),
 	              _react2.default.createElement(
-	                "div",
-	                { className: "col-md-4 col-md-offset-1" },
+	                'div',
+	                { className: 'col-md-4 col-md-offset-1' },
 	                _react2.default.createElement(
-	                  "span",
-	                  { className: "settings-heading" },
-	                  "Languages"
+	                  'span',
+	                  { className: 'settings-heading' },
+	                  'Languages'
 	                )
 	              ),
 	              _react2.default.createElement(
-	                "div",
-	                { className: "col-md-7" },
+	                'div',
+	                { className: 'col-md-7' },
 	                _react2.default.createElement(
-	                  "p",
+	                  'p',
 	                  null,
-	                  this.props.user.languages
+	                  user.languages
 	                )
 	              ),
 	              _react2.default.createElement(
-	                "div",
-	                { className: "col-md-10 col-md-offset-1 text-center" },
-	                _react2.default.createElement("hr", null),
+	                'div',
+	                { className: 'col-md-10 col-md-offset-1 text-center' },
+	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(
-	                  "div",
+	                  'div',
 	                  null,
-	                  "You are currently working on ",
-	                  _react2.default.createElement("br", null),
+	                  'Reps in Queue - ',
 	                  _react2.default.createElement(
-	                    "strong",
+	                    'strong',
 	                    null,
-	                    this.props.user.challengeRecords.length
+	                    user.challengeRecords.length
 	                  ),
-	                  " reps."
+	                  ' reps'
 	                ),
 	                _react2.default.createElement(
-	                  "a",
-	                  { href: "/users/settings" },
+	                  'a',
+	                  { href: '/users/settings' },
 	                  _react2.default.createElement(
-	                    "button",
-	                    { className: "btn btn-default" },
-	                    "Edit Settings"
+	                    'button',
+	                    { className: 'btn btn-default' },
+	                    'Edit Settings'
 	                  )
 	                )
 	              )
 	            )
 	          ),
-	          _react2.default.createElement("hr", null),
+	          _react2.default.createElement('hr', null),
 	          _react2.default.createElement(
-	            "div",
-	            { className: "stats-container text-center" },
+	            'div',
+	            { className: 'stats-container text-center' },
 	            _react2.default.createElement(
-	              "div",
-	              { className: "stats-heading" },
-	              "Current Streak"
+	              'div',
+	              { className: 'stats-heading' },
+	              'Current Streak'
 	            ),
 	            _react2.default.createElement(
-	              "div",
-	              { className: "stats-value" },
-	              this.props.user.streakCount.length
+	              'div',
+	              { className: 'stats-value' },
+	              user.streakCount.length
 	            )
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { className: "stats-container text-center" },
+	            'div',
+	            { className: 'stats-container text-center' },
 	            _react2.default.createElement(
-	              "div",
-	              { className: "stats-heading" },
-	              "Reps Completed"
+	              'div',
+	              { className: 'stats-heading' },
+	              'Reps Completed'
 	            ),
 	            _react2.default.createElement(
-	              "div",
-	              { className: "stats-value" },
-	              this.props.user.repsCompleted
+	              'div',
+	              { className: 'stats-value' },
+	              user.repsCompleted
 	            )
 	          ),
+	          adminLinks,
 	          _react2.default.createElement(
-	            "div",
-	            { id: "user-footer" },
+	            'div',
+	            { id: 'user-footer' },
 	            _react2.default.createElement(
-	              "a",
-	              { href: "/users/logout" },
-	              "Log Out"
+	              'a',
+	              { href: '/users/logout' },
+	              'Log Out'
 	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "div",
-	          { id: "side-panel" },
-	          _react2.default.createElement("span", { className: "glyphicon glyphicon-triangle-right toggle-panel", ariaHidden: "true" })
+	          'div',
+	          { id: 'side-panel' },
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-triangle-right toggle-panel', ariaHidden: 'true' })
 	        )
 	      );
 	    }

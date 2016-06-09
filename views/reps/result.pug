@@ -3,38 +3,38 @@ extends ./layout
 block content
   #results
     .row
-      .col-md-8.col-md-offset-2
-        h3= rep._challenge.description
-
-        pre
-          code.language-js= rep.input
-
+      .col-md-8.col-md-offset-2.text-center
         if rep.success
           div.icon.icon--order-success.svg
             svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
               g(fill="none" stroke="#8EC343" stroke-width="2")
                 circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
                 path(d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
-
         else
-          h5.see-results.toggle-test
-            | See Test Results
-            i.fa.fa-arrow-right(aria-hidden="true")
-
           .error-message.row
             br
-            .col-xs-2.icon.icon--order-success.svg
+            .icon.icon--order-success.svg
               svg(xmlns="http://www.w3.org/2000/svg" width="72px" height="72px")
                 g(fill="none" stroke="#B0171F" stroke-width="2")
                   circle(cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;")
                   path(d="M18,20l35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
                   path(d="M53,20l-35,35" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;")
-            .col-xs-10
-              span.no-success-text Oops! It looks like the tests failed to pass.
+
+    .row
+      .col-md-8.col-md-offset-2
+        h3= rep._challenge.description
+
+        pre
+          code.language-js= rep.input
+
+        if !rep.success
+          h5.see-results.toggle-test
+            | &nbsp;&nbsp;See Test Results
+            i.fa.fa-arrow-right(aria-hidden="true")
 
         hr
 
-        h3.text-center Rate this Challenge
+        h3.text-center.rate-header Rate this Challenge
         form.form-horizontal.rating(action='/reps/result' method='post')
           .form-group
             input(type='hidden', name='repID', value=rep.repId)
@@ -62,7 +62,7 @@ block content
       .col-md-10.col-md-offset-1
         h5.toggle-test
           i.fa.fa-arrow-left(aria-hidden="true")
-          |    Back
+          | &nbsp;&nbsp;Back
 
         pre
           code= rep.result

@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var CodeChallenge = require('../models/codeChallenge');
 var ChallengePack = require('../models/challengePack');
+var auth = require('../config/abilities');
 
-router.get('/new', function(req, res, next) {
+router.get('/new', auth.isAdmin, function(req, res, next) {
   res.render('packs/new', { errors: [] });
 });
 
@@ -32,7 +33,7 @@ router.post("/", function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', auth.isAdmin, function(req, res, next) {
   ChallengePack.findOne({ packId: req.params.id }, function(err, pack) {
     if (err) { next(err); }
     res.render('packs/show', { errors: [], challenges: pack.challenges })

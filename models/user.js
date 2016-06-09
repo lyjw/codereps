@@ -30,10 +30,8 @@ UserSchema.methods.validPassword = function(password) {
 };
 
 UserSchema.methods.hasStreakCounterToday = function() {
-  console.log(">>>>>>>>> INSIDE HASSTREAKCOUNTERTODAY")
   for(var i = 0; i < this.streakCount.length; i++) {
     if (this.streakCount[i].createdOn === moment().format("DD-MM-YYYY")) {
-      console.log(">>>>> A STREAK COUNTER EXISTS FOR TODAY");
       return true;
       break;
     } else {
@@ -43,10 +41,8 @@ UserSchema.methods.hasStreakCounterToday = function() {
 };
 
 UserSchema.methods.hasStreakCounterYesterday = function() {
-  console.log(">>>>>>>>> INSIDE HASSTREAKCOUNTERYESTERDAY")
   for(var i = 0; i < this.streakCount.length; i++) {
     if (this.streakCount[i].createdOn === moment().subtract(1, 'days').format("DD-MM-YYYY")) {
-      console.log(">>>>> A STREAK COUNTER EXISTS FOR YESTERDAY");
       return true;
       break;
     } else {

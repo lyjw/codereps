@@ -47,6 +47,10 @@ body {
   background-color: rgba(166, 188, 189, 0.55) !important;
 }
 
+.main-body {
+  margin-top: 20px;
+}
+
 a {
   color: #00B7FF;
 }
@@ -125,6 +129,12 @@ input[type="checkbox"] {
 .start-header {
   font-family: 'gt_walsheim_pro_trialMdOb';
   color: #5A7373;
+}
+
+.rate-header {
+  font-family: 'gt_walsheim_pro_triallight';
+  color: white;
+  font-size: 20px;
 }
 
 h3.settings-heading {
@@ -238,7 +248,7 @@ img.language-logo {
 
 #user-settings {
   display: none;
-  background-color: beige;
+  background-color: #EFEFEF;
   color: black;
   padding: 15px 0;
   margin-top: 10px;
@@ -252,7 +262,42 @@ img.language-logo {
   font-family: 'gt_walsheim_pro_trialbold';
   font-size: 20px;
   color: white;
-  margin: -10px 0 50px 10px;
+  margin: -10px 0 40px 10px;
+}
+
+.logo-header a,
+.logo-header a:visited,
+.logo-header a:hover,
+.logo-header a:active {
+  color: white;
+  text-decoration: none;
+}
+
+#admin-links {
+  margin-top: 50px;
+}
+
+#admin-links h4 {
+  text-transform: uppercase;
+  font-size: 14px;
+  text-align: right;
+}
+
+.admin-link {
+  border-top: 1px solid white;
+  padding: 10px;
+}
+
+.admin-link a,
+.admin-link a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.admin-link a:hover,
+.admin-link a:active {
+  color: #A6BCBD;
+  text-decoration: none;
 }
 
 .panel-heading {
@@ -332,8 +377,12 @@ hr {
 
 #get-started {
   padding: 8% 0 15% 0;
-  border-right: 1px solid white;
   height: 100%;
+}
+
+#choose-pack {
+  border-left: 1px solid white;
+  margin-bottom: 40px;
 }
 
 #get-started h4,

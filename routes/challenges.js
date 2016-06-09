@@ -6,10 +6,10 @@ var helpers = require('../helpers/challenge_helpers');
 var flash = require('connect-flash');
 var auth = require('../config/abilities');
 
-router.get('/new', function(req, res, next) {
+router.get('/new', auth.isAdmin, function(req, res, next) {
   ChallengePack.find({}, function(err, packs) {
     res.render('challenges/new', { errors: [], packs: packs });
-  })
+  });
 });
 
 router.get('/', function(req, res, next) {

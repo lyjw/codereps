@@ -111,7 +111,8 @@ router.post('/result', function(req, res) {
           .exec(function(err, record) {
             challengeService.updateRecord(record, gravity, rep, function() {
               req.flash('record_ID', record._id);
-              res.redirect("/reps/stats");
+              // res.redirect("/reps/stats");
+              res.redirect("/reps/new");
             });
           });
       });
