@@ -58,6 +58,7 @@ a {
 /*** HOME PAGE ***/
 .index-page {
   margin: 50px;
+  height: 100vh;
 }
 
 #main-heading {
@@ -398,4 +399,53 @@ hr {
 #choose-pack button {
   padding: 5px 10px;
   font-size: 15px;
+}
+
+.down-arrow {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin: 50px auto;
+}
+
+.down-arrow i {
+  font-size: 40px;
+  line-height: 50px;
+  color: white;
+}
+
+#about {
+  background-color: rgba(173, 196, 197, 0.84);
+  height: 100vh;
+  padding-top: 50px;
+}
+
+.single-slide {
+  height: 600px;
+  text-align: center;
+}
+
+.single-slide h2 {
+  font-family: 'gt_walsheim_pro_trialbold';
+  color: #5A7373;
+}
+
+.single-slide p {
+  font-size: 25px;
+  color: white;
+}
+
+#about img {
+  height: auto;
+  width: 800px;
+}
+
+.carousel-control {
+  opacity: 0.01 !important;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none !important;
 }

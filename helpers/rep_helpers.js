@@ -6,6 +6,7 @@ var CodeRep        = require('../models/codeRep');
 exports.generateSpecFile = function(userInput, challenge, callback) {
   var testFile = userInput + '\n' + challenge.test;
 
+  // Parse user input and test into a spec file
   fs.writeFile('./temp/inputSpec.js', testFile, function(err) {
     if (err) {
       console.log(err);
@@ -49,7 +50,6 @@ exports.testInput = function(rep, callback) {
         } else {
           callback(rep);
         }
-        // TODO: Delete test file after evaluating
     });
-  }); // end of child_process
+  });
 }

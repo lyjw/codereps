@@ -22,10 +22,26 @@ $(function() {
 
   $('.toggle-settings').click(function() {
     $('#user-settings').slideToggle(1000);
-  })
+  });
 
   $('.toggle-test').click(function() {
     $('#results').toggle();
     $('#test-results').toggle();
-  })
+  });
+
+  // Scrolldown Hover Effect
+  $('.down-arrow').mouseover(function() {
+    $(this).effect('bounce', 2000);
+  });
+
+  // Scrolldown Animation
+  function scrollToAnchor(aid){
+      var aTag = $("a[name='"+ aid +"']");
+      $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+  }
+
+  $('#see-about').click(function() {
+    scrollToAnchor('about-codereps');
+  });
+
 });

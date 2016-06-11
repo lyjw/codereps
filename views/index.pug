@@ -14,6 +14,7 @@ html
     script(type="text/javascript", src="/javascripts/react.min.js")
     script(type="text/javascript", src="/javascripts/react-dom.min.js")
     script(type="text/javascript", src="/javascripts/jquery-2.2.4.min.js")
+    script(type="text/javascript", src="/javascripts/jquery-ui.min.js")
     script(type="text/javascript", src="/javascripts/prism.js")
     script(type='text/javascript', src='/javascripts/codemirror-compressed.js')
     script(type="text/javascript", src="/javascripts/main.js")
@@ -36,3 +37,51 @@ body
         | &nbsp;&nbsp;or&nbsp;&nbsp;
         a(href="/users/login")
           button.btn.btn-default Log In
+
+      a#see-about(href="#")
+        div.down-arrow.text-center
+          i.fa.fa-angle-double-down(aria-hidden="true")
+
+  a(name="about-codereps")
+  .row#about
+    .col-md-8.col-md-offset-2
+      #slides.carousel.slide(data-ride="carousel")
+        ol.carousel-indicators
+          li.active(data-target="#slides" data-slide-to="0")
+          li(data-target="#slides" data-slide-to="1")
+          li(data-target="#slides" data-slide-to="2")
+          li(data-target="#slides" data-slide-to="3")
+
+        .carousel-inner(role="listbox")
+          .item.active
+            .single-slide
+              h2 The Problem
+              img(src="/images/1-01.png")
+              p When you're learning to code, sometimes it's easy to forget syntax.
+
+          .item
+            .single-slide
+              h2 Spaced Repetition in a Nutshell
+              img(src="/images/2-01.png")
+              p If you want to commit something to memory, space out how often you study something to improve your chances of remembering.
+
+          .item
+            .single-slide
+              h2 Code on a Flashcard
+              img(src="/images/3-01.png")
+              p When it comes to code, normal flashcards don't cut it.
+
+          .item
+            .single-slide
+              h2 This is CodeReps
+              img(src="/images/4-01.png")
+              p Use interactive flashcards to practice code with spaced repetition.
+
+        a.left.carousel-control(href="#slides" role="button" data-slide="prev")
+          span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+          span.sr-only Previous
+        a.right.carousel-control(href="#slides" role="button" data-slide="next")
+          span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+          span.sr-only Next
+
+  script(src='/javascripts/bootstrap.min.js')
