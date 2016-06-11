@@ -35,7 +35,7 @@ var packs = require('../routes/packs');
 var authentications = require('../routes/authentications');
 
 // mongoose
-var connection = mongoose.connect("mongodb://localhost/journal_prompter_4");
+var connection = mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/journal_prompter_4");
 
 var autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(connection);
