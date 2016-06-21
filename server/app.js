@@ -13,7 +13,7 @@ var passport = require('passport');
 var passportConfig = require('../config/passport');
 var session = require('express-session');
 var githubAuth = require('../config/authentication');
-var config = require('../config/.oauth.js');
+// var config = require('../config/.oauth.js');
 var LocalStrategy = require('passport-local').Strategy;
 var GithubStrategy = require('passport-github2').Strategy;
 var bCrypt = require('bcrypt-nodejs');
@@ -56,7 +56,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.resolve(__dirname, '../dist')));
-app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(session({ secret: process.env.SESSION_SECRET || 'SECRET' }));
 
 app.use(passport.initialize());
 app.use(passport.session());

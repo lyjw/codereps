@@ -2,12 +2,12 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var GithubStrategy = require('passport-github2').Strategy;
 var User = require('../models/user');
-var config = require('./.oauth');
+// var config = require('./.oauth');
 
 exports = passport.use(new GithubStrategy({
-    clientID: config.github.clientID,
-    clientSecret: config.github.clientSecret,
-    callbackURL: config.github.callbackURL
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       User.findOne({ oauthID: profile.id }, function(err, user) {
