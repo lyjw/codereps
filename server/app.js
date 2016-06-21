@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jquery = require('jquery');
 var secrets = require('../.secrets.yml');
+var moragn = require('morgan');
 
 var passport = require('passport');
 var passportConfig = require('../config/passport');
@@ -43,6 +44,10 @@ autoIncrement.initialize(connection);
 var app = express();
 
 require("node-jsx").install();
+
+var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
+
+app.use(morgan('combined', {stream: accessLogStream}))
 
 // view engine setup
 app.set('../views', path.join(__dirname, 'views'));
