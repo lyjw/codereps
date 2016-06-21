@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jquery = require('jquery');
 // var secrets = require('../.secrets.yml');
-var morgan = require('morgan');
 
 var passport = require('passport');
 var passportConfig = require('../config/passport');
