@@ -34,7 +34,8 @@
     "pug": "^2.0.0-alpha8",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "session-mongoose": "^0.5.2"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

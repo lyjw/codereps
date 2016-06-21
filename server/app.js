@@ -1,5 +1,6 @@
 var fs = require('fs');
 var express = require('express');
+var SessionStore = require('session-mongoose')(express);
 var routes = require('../routes');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,7 +8,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jquery = require('jquery');
-// var secrets = require('../.secrets.yml');
 
 var passport = require('passport');
 var passportConfig = require('../config/passport');
@@ -42,6 +42,17 @@ autoIncrement.initialize(connection);
 
 var app = express();
 
+app.use(
+  express.session({
+    store: new Sessionstore({
+      url: process.env.MONGOLAB_URI,
+      interval: 1200000
+    }),
+    cookie: { maxAge: 120000 },
+    secret: 'secret'
+  })
+);
+
 // require("node-jsx").install();
 
 // view engine setup
@@ -56,7 +67,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.resolve(__dirname, '../dist')));
-app.use(session({ secret: process.env.SESSION_SECRET || 'SECRET' }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -81,6 +91,8 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+  app.use(session({ secret: process.env.SESSION_SECRET }));
+
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
