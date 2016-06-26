@@ -2,7 +2,6 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var GithubStrategy = require('passport-github2').Strategy;
 var User = require('../models/user');
-// var config = require('./.oauth');
 
 exports = passport.use(new GithubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,

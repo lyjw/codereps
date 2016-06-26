@@ -1,6 +1,5 @@
 var fs = require('fs');
 var express = require('express');
-var SessionStore = require('session-mongoose')(express);
 var routes = require('../routes');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,8 +11,8 @@ var jquery = require('jquery');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var githubAuth = require('../config/authentication');
-// var config = require('../config/.oauth.js');
 var LocalStrategy = require('passport-local').Strategy;
 var GithubStrategy = require('passport-github2').Strategy;
 var bCrypt = require('bcrypt-nodejs');
@@ -42,16 +41,10 @@ autoIncrement.initialize(connection);
 
 var app = express();
 
-app.use(
-  express.session({
-    store: new Sessionstore({
-      url: process.env.MONGOLAB_URI,
-      interval: 1200000
-    }),
-    cookie: { maxAge: 120000 },
-    secret: 'secret'
-  })
-);
+app.use(session({
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  secret: process.env.SESSION_SECRET
+}));
 
 // require("node-jsx").install();
 
@@ -91,8 +84,6 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(session({ secret: process.env.SESSION_SECRET }));
-
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
