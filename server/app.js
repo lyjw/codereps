@@ -42,8 +42,10 @@ autoIncrement.initialize(connection);
 var app = express();
 
 app.use(session({
+  secret: process.env.SESSION_SECRET,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  secret: process.env.SESSION_SECRET
+  resave: true,
+  saveUninitialized: false
 }));
 
 // require("node-jsx").install();
