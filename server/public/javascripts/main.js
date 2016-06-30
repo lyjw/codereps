@@ -44,4 +44,17 @@ $(function() {
     scrollToAnchor('about-codereps');
   });
 
+  $('label[for="ruby"]').hover(function(){
+        $('div.notification').css({
+        display: "block",
+        position: "absolute",
+        left: ($(this).offset().left + ($(this).width()) + 30) + "px",
+        top: $(this).offset().top + "px"
+    });
+  },
+  function(){
+      $("div.notification").hide();
+  });
+
+
 });

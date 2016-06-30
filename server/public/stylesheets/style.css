@@ -259,6 +259,24 @@ img.language-logo {
   border-color: #312D2D;
 }
 
+.notification {
+  display: none;
+  background-color: #151560;
+  color: white;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 12px;
+  padding: 5px 0;
+}
+
+.notification-heading {
+  text-transform: uppercase;
+}
+
+.notification .fa-exclamation-circle {
+  font-size: 20px;
+}
+
 .logo-header {
   font-family: 'gt_walsheim_pro_trialbold';
   font-size: 20px;

@@ -14,9 +14,9 @@ block content
           label
             input(type="radio", name="experience", value="Intermediate")
             span.experience-label Intermediate
-          label
-            input(type="radio", name="experience", value="Advanced")
-            span.experience-label Advanced
+          //- label
+          //-   input(type="radio", name="experience", value="Advanced")
+          //-   span.experience-label Advanced
         hr
         .form-group.text-center
           h3.settings-heading Languages
@@ -25,12 +25,21 @@ block content
               img.language-logo(for="js" src="../images/javascript.png")
             input#js(type="checkbox", name="languages", value="Javascript")
           .language-div
-            label(for="ruby") Ruby
+            label(for="ruby" data-toggle="modal" target="#notification") Ruby
               img.language-logo(for="ruby" src="../images/ruby.png")
-            input#ruby(type="checkbox", name="languages", value="Ruby")
+            input#ruby(type="checkbox", name="languages", value="Ruby" disabled="disabled")
 
           button(class='btn btn-lg btn-default btn-block', type='submit') Choose your Challenges
 
+  div.notification.row
+    .col-md-1
+      i.fa.fa-exclamation-circle(aria-hidden="true")
+    .col-md-10
+      | Support for Ruby challenges on
+      b &nbsp;codereps&nbsp;
+      | is currently&nbsp;
+      u under development
+      | . Please check back again soon!
 
   if message
     h1.text-center.error-message= message
