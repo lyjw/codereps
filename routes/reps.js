@@ -15,7 +15,9 @@ var React = require('react');
 var ReactDOMServer = require('react-dom/server');
 var Panel = require('../server/generated/panel').default;
 
-router.get('/new', auth.isLoggedIn, function(req, res) {
+router.get('/new', auth.isLoggedIn, function(req, res, next) {
+  if (err) { next(err); }
+
   userHelpers.findCurrentUser(req.session.passport, function(user) {
     var reactHtml = ReactDOMServer.renderToString(React.createElement(Panel, { user: user }));
 

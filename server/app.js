@@ -48,7 +48,16 @@ app.use(session({
   saveUninitialized: false
 }));
 
-// require("node-jsx").install();
+// if (!app.get('env') === 'development') {
+//   var secrets = require('../.secrets.yml');
+//
+//   app.use(session({
+//     secret: secrets.appkeys.sessionSecret,
+//     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+//     resave: true,
+//     saveUninitialized: false
+//   }));
+// }
 
 // view engine setup
 app.set('../views', path.join(__dirname, 'views'));
@@ -89,6 +98,7 @@ if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
+      status: err.status || "404",
       message: err.message,
       error: err
     });
@@ -100,6 +110,7 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
+    status: err.status || "404",
     message: err.message,
     error: {}
   });

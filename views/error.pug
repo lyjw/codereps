@@ -1,6 +1,10 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  div.text-center
+    h1#error-status= status
+    p#error-message Oops, it looks like something went wrong!
+      br
+      | We have been informed of the issue.
+
+    a(href="/users/settings").redirect-settings Return to Settings

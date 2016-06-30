@@ -55,6 +55,35 @@ a {
   color: #00B7FF;
 }
 
+.logo-header {
+  font-family: 'gt_walsheim_pro_trialbold';
+  font-size: 20px;
+  color: white;
+  margin: -10px 0 40px 10px;
+}
+
+.logo-header a,
+.logo-header a:visited,
+.logo-header a:hover,
+.logo-header a:active {
+  color: white;
+  text-decoration: none;
+}
+
+#error-status {
+  text-align: center;
+  font-size: 200px;
+  color: #445c5c;
+}
+
+#error-message {
+  font-size: 20px;
+}
+
+a.redirect-settings {
+  color: white;
+}
+
 /*** HOME PAGE ***/
 .index-page {
   margin: 50px;
@@ -78,7 +107,57 @@ a {
   color: #5A7373;
 }
 
-/****** Rep SHOW *********/
+
+.down-arrow {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin: 50px auto;
+}
+
+.down-arrow i {
+  font-size: 40px;
+  line-height: 50px;
+  color: white;
+}
+
+#about {
+  background-color: rgba(173, 196, 197, 0.84);
+  height: 100vh;
+  padding-top: 50px;
+}
+
+.single-slide {
+  height: 600px;
+  text-align: center;
+}
+
+.single-slide h2 {
+  font-family: 'gt_walsheim_pro_trialbold';
+  color: #5A7373;
+}
+
+.single-slide p {
+  font-size: 25px;
+  color: white;
+}
+
+#about img {
+  height: auto;
+  width: 800px;
+}
+
+.carousel-control {
+  opacity: 0.01 !important;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none !important;
+}
+
+/****** REPS *********/
 .success-tick {
   background-color: green;
   border-radius: 50%;
@@ -100,13 +179,6 @@ a {
   font-size: 15px;
 }
 
-/*.error-message {
-  margin-top: 20px;
-  height: 90px;
-  border: 2px solid #B0171F;
-  border-radius: 15px;
-}*/
-
 form.rating {
   text-align: center;
   margin-top: 20px;
@@ -122,6 +194,13 @@ input[type="checkbox"] {
   font-size: 18px;
 }
 
+.rate-header {
+  font-family: 'gt_walsheim_pro_triallight';
+  color: white;
+  font-size: 20px;
+}
+
+/*** USERS ***/
 .users-header {
   font-family: 'gt_walsheim_pro_trialMdOb';
   color: white;
@@ -130,12 +209,6 @@ input[type="checkbox"] {
 .start-header {
   font-family: 'gt_walsheim_pro_trialMdOb';
   color: #5A7373;
-}
-
-.rate-header {
-  font-family: 'gt_walsheim_pro_triallight';
-  color: white;
-  font-size: 20px;
 }
 
 h3.settings-heading {
@@ -175,7 +248,6 @@ h3.settings-heading.experience {
   font-size: 20px;
 }
 
-/*** USERS *****/
 button.github-auth {
   width: 100%;
   height: 40px;
@@ -197,12 +269,118 @@ img.language-logo {
   margin-top: 10px;
 }
 
-#user-panel {
-  height: 100%;
-}
 
 #rep-view {
   padding: 30px;
+}
+
+.toggle-settings {
+  float: right;
+}
+
+#signup-form,
+#login-form {
+  background-color: white;
+  margin-bottom: 200px;
+  padding-bottom: 50px;
+}
+
+#signup-form .users-header {
+  border-bottom: 1px solid #cedada;
+}
+
+#signup-form .users-header,
+#login-form .users-header {
+  font-size: 25px;
+  padding: 10px;
+  color: #445c5c;
+}
+
+#signup-form .form-control,
+#login-form .form-control {
+  border: 1px solid #cedada;
+}
+
+#user-settings {
+  display: none;
+  background-color: #EFEFEF;
+  color: black;
+  padding: 15px 0;
+  margin-top: 10px;
+}
+
+#user-settings hr {
+  border-color: #312D2D;
+}
+
+.notification {
+  display: none;
+  background-color: #151560;
+  color: white;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 12px;
+  padding: 5px 0;
+}
+
+.notification-heading {
+  text-transform: uppercase;
+}
+
+.notification .fa-exclamation-circle {
+  font-size: 20px;
+}
+
+/*** USERS - GET STARTED ***/
+.well {
+  padding: 10px 20px 40px 20px !important;
+}
+
+.challenge-pack {
+  min-width: 100%;
+  margin-bottom: -10px;
+}
+
+.challenge-pack .well {
+  padding-bottom: 20px !important;
+}
+
+.challenge-pack h3 {
+  font-family: 'gt_walsheim_pro_trialmedium';
+}
+
+.pack-label {
+  font-family: 'gt_walsheim_pro_trialmedium';
+}
+
+#get-started h4,
+#choose-pack h4 {
+  font-family: 'gt_walsheim_pro_trialmedium';
+  line-height: 25px;
+}
+
+#get-started {
+  padding: 8% 0 15% 0;
+  height: 100%;
+}
+
+#get-started .choose-pack-text {
+  color: white;
+}
+
+#choose-pack {
+  border-left: 1px solid white;
+  margin-bottom: 40px;
+}
+
+#choose-pack button {
+  padding: 5px 10px;
+  font-size: 15px;
+}
+
+/*** USERS - PANEL ***/
+#user-panel {
+  height: 100%;
 }
 
 #main-panel {
@@ -241,55 +419,6 @@ img.language-logo {
   display: inline;
   float: right;
   border-left: 1px solid rgba(240, 248, 255, 0.06);
-}
-
-.toggle-settings {
-  float: right;
-}
-
-#user-settings {
-  display: none;
-  background-color: #EFEFEF;
-  color: black;
-  padding: 15px 0;
-  margin-top: 10px;
-}
-
-#user-settings hr {
-  border-color: #312D2D;
-}
-
-.notification {
-  display: none;
-  background-color: #151560;
-  color: white;
-  border-radius: 5px;
-  width: 250px;
-  font-size: 12px;
-  padding: 5px 0;
-}
-
-.notification-heading {
-  text-transform: uppercase;
-}
-
-.notification .fa-exclamation-circle {
-  font-size: 20px;
-}
-
-.logo-header {
-  font-family: 'gt_walsheim_pro_trialbold';
-  font-size: 20px;
-  color: white;
-  margin: -10px 0 40px 10px;
-}
-
-.logo-header a,
-.logo-header a:visited,
-.logo-header a:hover,
-.logo-header a:active {
-  color: white;
-  text-decoration: none;
 }
 
 #admin-links {
@@ -371,99 +500,4 @@ hr {
 .add-challenge {
   float: right;
   margin-bottom: 10px;
-}
-
-.well {
-  padding: 10px 20px 40px 20px !important;
-}
-
-.challenge-pack {
-  min-width: 100%;
-  margin-bottom: -10px;
-}
-
-.challenge-pack .well {
-  padding-bottom: 20px !important;
-}
-
-.challenge-pack h3 {
-  font-family: 'gt_walsheim_pro_trialmedium';
-}
-
-.pack-label {
-  font-family: 'gt_walsheim_pro_trialmedium';
-}
-
-#get-started {
-  padding: 8% 0 15% 0;
-  height: 100%;
-}
-
-#choose-pack {
-  border-left: 1px solid white;
-  margin-bottom: 40px;
-}
-
-#get-started h4,
-#choose-pack h4 {
-  font-family: 'gt_walsheim_pro_trialmedium';
-  line-height: 25px;
-}
-
-#get-started .choose-pack-text {
-  color: white;
-}
-
-#choose-pack button {
-  padding: 5px 10px;
-  font-size: 15px;
-}
-
-.down-arrow {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 2px solid white;
-  margin: 50px auto;
-}
-
-.down-arrow i {
-  font-size: 40px;
-  line-height: 50px;
-  color: white;
-}
-
-#about {
-  background-color: rgba(173, 196, 197, 0.84);
-  height: 100vh;
-  padding-top: 50px;
-}
-
-.single-slide {
-  height: 600px;
-  text-align: center;
-}
-
-.single-slide h2 {
-  font-family: 'gt_walsheim_pro_trialbold';
-  color: #5A7373;
-}
-
-.single-slide p {
-  font-size: 25px;
-  color: white;
-}
-
-#about img {
-  height: auto;
-  width: 800px;
-}
-
-.carousel-control {
-  opacity: 0.01 !important;
-}
-
-.carousel-control.left,
-.carousel-control.right {
-  background-image: none !important;
 }
